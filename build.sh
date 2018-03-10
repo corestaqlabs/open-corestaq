@@ -13,7 +13,7 @@ build_config () {
 	rm -rf output/*Image
 	rm -rf output/*ext"
 	rm -rf output/*dtb"
-	rm -rf system/skeleton
+	rm -rf system/skeleton/*
 	cat board-targets/"$TARGET"/board.conf > corefs-builder/configs/active_defconfig
 	cat board-targets/"$TARGET"/config/linux.conf >> corefs-builder/configs/active_defconfig
 	cat board-targets/"$TARGET"/config/uboot.conf >> corefs-builder/configs/active_defconfig
@@ -21,8 +21,7 @@ build_config () {
 	cat config/corefs-apps.conf >> corefs-builder/configs/active_defconfig
 	cp -r board-targets/"$TARGET"/* corefs-builder/board/
 	cp -r config/* corefs-builder/configs/
-	cp -r config/skel corefs-builder/system/skeleton
-pwd
+	cp -r config/skel/* corefs-builder/system/skeleton/
 	cp -r board-targets/"$TARGET"/skel/* corefs-builder/system/skeleton/
 }
 
