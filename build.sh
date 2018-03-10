@@ -13,7 +13,7 @@ build_config () {
 	rm -rf output/*Image
 	rm -rf output/*ext"
 	rm -rf output/*dtb"
-	rm -rf system/skeleton/*
+	rm -rf corefs-builder/system/skeleton/*
 	cat board-targets/"$TARGET"/board.conf > corefs-builder/configs/active_defconfig
 	cat board-targets/"$TARGET"/config/linux.conf >> corefs-builder/configs/active_defconfig
 	cat board-targets/"$TARGET"/config/uboot.conf >> corefs-builder/configs/active_defconfig
