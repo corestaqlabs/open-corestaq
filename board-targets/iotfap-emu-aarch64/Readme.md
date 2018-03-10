@@ -1,0 +1,1 @@
+qemu-system-aarch64 -M virt -cpu cortex-a57 -nographic -smp 2 -m 512 -kernel Image -drive file=rootfs.ext4,if=none,format=raw,id=hd0 -device virtio-blk-device,drive=hd0 -append "root=/dev/vda console=ttyAMA0" -netdev user,id=eth0 -device virtio-net-device,netdev=eth0 
