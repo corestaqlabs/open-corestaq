@@ -11,7 +11,6 @@ kmem:x:9:
 wheel:x:10:root
 cdrom:x:11:
 dialout:x:18:
-floppy:x:19:
 video:x:28:
 audio:x:29:
 tape:x:32:
@@ -24,3 +23,4 @@ lock:x:54:
 netdev:x:82:
 users:x:100:
 nogroup:x:65534:
+iotfaposd:x:999:
