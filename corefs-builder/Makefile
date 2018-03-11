@@ -987,7 +987,7 @@ printvars:
 clean:
 	rm -rf $(TARGET_DIR) $(BINARIES_DIR) $(HOST_DIR) \
 		$(BUILD_DIR) $(BASE_DIR)/staging \
-		$(LEGAL_INFO_DIR) $(GRAPHS_DIR) configs/* board/*
+		$(LEGAL_INFO_DIR) $(GRAPHS_DIR) configs/* board/* system/skeleton/*
 
 .PHONY: distclean
 distclean: clean
