@@ -5,7 +5,6 @@
 
 TARGET="$1"
 BUILD="$2"
-source board-targets/"$TARGET"/board.conf
 
 build_config () {
 	rm -rf corefs-builder/configs/*
@@ -100,9 +99,14 @@ build_help () {
 }
 
 # Check Target Exists
-if [ -f board-targets/"$TARGET"/board.conf ]; then
-	build_config
-	build
+if [ "$TARGET" == "clean" ]; then
+	make_clean
 else
-	build_help
+	if [ -f board-targets/"$TARGET"/board.conf ]; then
+		source board-targets/"$TARGET"/board.conf
+		build_config
+		build
+	else
+		build_help	
+	fi
 fi
