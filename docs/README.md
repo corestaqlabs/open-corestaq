@@ -6,19 +6,19 @@ Secure, tiny, embedded Linux compatable system
 
 ## Target Boards
 
-###iotfap-emu-arfhf
+### iotfap-emu-arfhf
 
-###iotfap-emu-aarch64
+### iotfap-emu-aarch64
 
-###iotfap-emu-x86_32
+### iotfap-emu-x86_32
 
-###iotfap-emu-x86_64
+### iotfap-emu-x86_64
 
-###iotfap-xxx-rda8810
+### iotfap-xxx-rda8810
 
-###iotfap-xxx-tinker
+### iotfap-xxx-tinker
 
-###iotfap-xxx-h2
+### iotfap-xxx-h2
 
 
 ## Building
