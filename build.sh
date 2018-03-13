@@ -39,6 +39,9 @@ build () {
 		uboot)
 			make_uboot
 			;;
+		clean)
+			make_clean
+			;;
 		*)
 			make_none
 			;;
@@ -77,15 +80,21 @@ make_uboot () {
 	echo "booted"
 }
 
+make_clean () {
+	cd corefs-builder
+	make clean
+}
+
 make_none () {
 	cd corefs-builder
 	make active_defconfig
+	make menuconfig
 }
 
 build_help () {
 	echo 'Use: build.sh board-target [buildtype]'
 	echo ' buildtypes (optional):'
-	echo '   all, corefs, linux, uboot'
+	echo '   all, corefs, linux, uboot, clean'
 	echo ' board-targets (required):'
 	ls board-targets/*/board.conf | cut -d '/' -f 2 | sed 's/^/   /g'
 }
