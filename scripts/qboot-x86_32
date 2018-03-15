@@ -1,2 +1,0 @@
-#!/bin/bash
-qemu-system-i386 -M pc -nographic -smp 2 -m 512 -kernel "$1" -drive file="$2",if=virtio,format=raw -append "root=/dev/vda" -net nic,model=virtio -net user
