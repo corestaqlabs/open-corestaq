@@ -10,15 +10,11 @@ Secure, tiny, embedded Linux compatable system
 
 #### iotfap-emu-aarch64
 
-#### iotfap-emu-x86_32
+#### iotfap-rda8810
 
-#### iotfap-emu-x86_64
+#### asus-tinker
 
-#### iotfap-xxx-rda8810
-
-#### iotfap-xxx-tinker
-
-#### iotfap-xxx-h2
+#### opi-h2
 
 
 ## Building
