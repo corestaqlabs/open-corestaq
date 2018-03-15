@@ -1,25 +1,36 @@
 # iotfapOS-core
 
-Secure, tiny, embedded Linux compatable system
+    Secure, tiny, embedded Linux compatable system
 
 ## About
 
 ## Target Boards
 
-#### iotfap-emu-arfhf (Developer Qemu Image)
+#### iotfap developer quemu builds
 
-#### iotfap-emu-aarch64 (Developer Qemu Image)
+* iotfap-emu-arfhf (Developer Qemu Image)
 
-#### iotfap-rda8810 (Generic rda8810, opi-2g-iot, rda8810-devkit)
+* iotfap-emu-aarch64 (Developer Qemu Image)
 
-#### iotfap-rk3288-miniarm (Generic rk3288-miniarm, asus-tinker, miqi-rk3288)
+#### iotfap generic platform targets
 
-#### iotfap-h2 (opi-0-h2, opi-r1)
+* iotfap-rda8810 (Generic rda8810, opi-2g-iot, rda8810-devkit)
 
+* iotfap-rk3288-miniarm (Generic rk3288-miniarm)
+
+* iotfap-h2 (Generic Allwinner H2+)
+
+#### Supported Target Boards
+
+* asus-tinker (Asus Tinkerboard SD Card)
+
+* opi-2g (Orange Pi 2G IOT SD Card)
+
+* opi-2g-nand (Orange Pi 2G IOT NAND)
 
 ## Building
 
-./build target-board [ all | linux | corefs | uboot | clean ]
+    ./build target-board [ all | linux | corefs | uboot | clean ]
 
 ## Pre-built images
 
