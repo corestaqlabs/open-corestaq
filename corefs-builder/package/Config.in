@@ -8,13 +8,19 @@ menu "Target packages"
 	source "package/skeleton-init-systemd/Config.in"
 	source "package/skeleton-init-sysv/Config.in"
 
-menu "iotfapOS Core"
+menu "iotfapOS-Core"
 	source "package/iotfapos-fapscript/Config.in"
 endmenu
 
-menu "iotfapOS NetUtils"
+menu "Core: System
+	source "package/htop/Config.in"
+	source "package/iotop/Config.in"
+endmenu
+
+menu "Core: Network"
 	source "package/dropbear/Config.in"
 	source "package/stunnel/Config.in"
+	source "package/rsync/Config.in"
 endmenu
 
 menu "Buildroot Utils"
@@ -1814,7 +1820,6 @@ endif
 	source "package/rp-pppoe/Config.in"
 	source "package/rpcbind/Config.in"
 	source "package/rsh-redone/Config.in"
-	source "package/rsync/Config.in"
 	source "package/rtorrent/Config.in"
 	source "package/rtptools/Config.in"
 	source "package/rygel/Config.in"
@@ -1967,9 +1972,7 @@ menu "System tools"
 	source "package/emlog/Config.in"
 	source "package/ftop/Config.in"
 	source "package/getent/Config.in"
-	source "package/htop/Config.in"
 	source "package/initscripts/Config.in"
-	source "package/iotop/Config.in"
 	source "package/iprutils/Config.in"
 	source "package/irqbalance/Config.in"
 	source "package/keyutils/Config.in"

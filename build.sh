@@ -87,7 +87,6 @@ make_clean () {
 make_none () {
 	cd corefs-builder
 	make active_defconfig
-	make menuconfig
 }
 
 build_help () {
