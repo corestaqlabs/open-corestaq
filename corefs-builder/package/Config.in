@@ -13,13 +13,15 @@ menu "iotfapOS-Core"
 endmenu
 
 menu "Core: System
+	source "package/dropbear/Config.in"
+	source "package/stunnel/Config.in"
 	source "package/htop/Config.in"
 endmenu
 
 menu "Core: Network"
-	source "package/dropbear/Config.in"
-	source "package/stunnel/Config.in"
 	source "package/rsync/Config.in"
+	source "package/wireless_tools/Config.in"
+	source "package/wpa_supplicant/Config.in"
 endmenu
 
 menu "Buildroot Utils"
@@ -1871,9 +1873,7 @@ endif
 	source "package/whois/Config.in"
 	source "package/wireguard/Config.in"
 	source "package/wireless-regdb/Config.in"
-	source "package/wireless_tools/Config.in"
 	source "package/wireshark/Config.in"
-	source "package/wpa_supplicant/Config.in"
 	source "package/wpan-tools/Config.in"
 	source "package/xinetd/Config.in"
 	source "package/xl2tp/Config.in"
