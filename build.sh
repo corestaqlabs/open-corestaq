@@ -9,9 +9,7 @@ BUILD="$2"
 build_config () {
 	rm -rf corefs-builder/configs/*
 	rm -rf corefs-builder/board/*
-	rm -rf output/*Image
-	rm -rf output/*ext"
-	rm -rf output/*dtb"
+	rm -rf output/*
 	rm -rf corefs-builder/system/skeleton/*
 	cat board-targets/"$TARGET"/board.conf > corefs-builder/configs/active_defconfig
 	cat board-targets/"$TARGET"/config/linux.conf >> corefs-builder/configs/active_defconfig
