@@ -5,7 +5,7 @@
 
 ## About
 
-#TODO
+    #TODO
 
 ## Target Boards / platforms in development
 
@@ -41,7 +41,7 @@
 
 ## Building
 
-./build action target board [profile]
+    ./build action target board [profile]
 
 Actions: [a]ctivate config, [b]uild target, [c]lean build env, [d]elete ccache, [e]dit corefs
 
@@ -53,13 +53,13 @@ Profiles: base, gpio, lamp, mysql, custom, etc [base if blank]
 
 #### Examples
 
-./build b i iotfap-emu-aarch64   #build a full system image for arm8 aarch64 qemu
+    ./build b i iotfap-emu-aarch64   #build a full system image for arm8 aarch64 qemu
 
-./build b k iotfap-emu-armhf   #build a kernel image for arm7 armhf qemu
+    ./build b k iotfap-emu-armhf   #build a kernel image for arm7 armhf qemu
 
-./build a i iotfap-emu-x86_64   #activate config and prepare build, dont make for x86_64 qemu
+    ./build a i iotfap-emu-x86_64   #activate config and prepare build, dont make for x86_64 qemu
 
-./build c   #clean the build environment config and cache
+    ./build c   #clean the build environment config and cache
 
 ## Build Output
 
@@ -81,7 +81,7 @@ Profiles: base, gpio, lamp, mysql, custom, etc [base if blank]
 #### Check project releases
 
 ## FAQ's
-#TODO
+    #TODO
 
 ## Contributing
-#TODO
+    #TODO
