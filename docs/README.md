@@ -15,7 +15,7 @@
 
 * iotfap-emu-aarch64 (Developer Qemu Image)
 
-* iotfap-emu-x64 (Developer Qemu Image) #TODO
+* iotfap-emu-x86_64 (Developer Qemu Image) #TODO
 
 ##### iotfap generic platform targets
 
@@ -50,6 +50,16 @@ Targets: [i]mage, [c]orefs, [k]ernel, [u]boot
 Boards: iotfap-emu-armhf, iotfap-emu-aarch64, etc
 
 Profiles: base, gpio, lamp, mysql, custom, etc [base if blank]
+
+#### Examples
+
+./build b i iotfap-emu-aarch64   #build a full system image for arm8 aarch64 qemu
+
+./build b k iotfap-emu-armhf   #build a kernel image for arm7 armhf qemu
+
+./build a i iotfap-emu-x86_64   #activate config and prepare build, dont make for x86_64 qemu
+
+./build c   #clean the build environment config and cache
 
 ## Build Output
 
