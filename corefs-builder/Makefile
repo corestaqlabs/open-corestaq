@@ -87,7 +87,7 @@ all:
 .PHONY: all
 
 # Set and export the version string
-export BR2_VERSION := 2018.05-git
+export BR2_VERSION := 2018.02
 # Actual time the release is cut (for reproducible builds)
 BR2_VERSION_EPOCH = 1520198000
 
@@ -987,7 +987,7 @@ printvars:
 clean:
 	rm -rf $(TARGET_DIR) $(BINARIES_DIR) $(HOST_DIR) \
 		$(BUILD_DIR) $(BASE_DIR)/staging \
-		$(LEGAL_INFO_DIR) $(GRAPHS_DIR) configs/* board/* system/skeleton/*
+		$(LEGAL_INFO_DIR) $(GRAPHS_DIR)
 
 .PHONY: distclean
 distclean: clean
