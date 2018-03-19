@@ -11,15 +11,15 @@ build_config () {
 	rm -rf corefs-builder/board/*
 	rm -rf output/*
 	rm -rf corefs-builder/system/skeleton/*
-	cat board-targets/"$TARGET"/board.conf > corefs-builder/configs/active_defconfig
-	cat board-targets/"$TARGET"/config/linux.conf >> corefs-builder/configs/active_defconfig
-	cat board-targets/"$TARGET"/config/uboot.conf >> corefs-builder/configs/active_defconfig
+	cat boards/"$TARGET"/board.conf > corefs-builder/configs/active_defconfig
+	cat boards/"$TARGET"/config/linux.conf >> corefs-builder/configs/active_defconfig
+	cat boards/"$TARGET"/config/uboot.conf >> corefs-builder/configs/active_defconfig
 	cat config/iotfapOS-core.conf >> corefs-builder/configs/active_defconfig
-	cat config/corefs-apps.conf >> corefs-builder/configs/active_defconfig
-	cp -r board-targets/"$TARGET"/* corefs-builder/board/
+	cat config/iotfapOS-custom.conf >> corefs-builder/configs/active_defconfig
+	cp -r boards/"$TARGET"/* corefs-builder/board/
 	cp -r config/* corefs-builder/configs/
 	cp -r config/skel/* corefs-builder/system/skeleton/
-	cp -r board-targets/"$TARGET"/skel/* corefs-builder/system/skeleton/
+	cp -r boards/"$TARGET"/skel/* corefs-builder/system/skeleton/
 }
 
 build () {
@@ -51,7 +51,6 @@ make_all () {
 	make
 	cp output/images/* ../output/
 	tar -czf $TB_ID-all.tgz ../output
-	mv $TB_ID-all.tgz ../output/
 }
 
 make_corefs () {
@@ -61,7 +60,6 @@ make_corefs () {
 	make
 	cp output/images/* ../output/
 	tar -czf $TB_ID-corefs.tgz ../output
-	mv $TB_ID-corefs.tgz ../output/
 }
 
 make_linux () {
@@ -70,7 +68,6 @@ make_linux () {
 	make linux-build
 	cp output/images/* ../output/
 	tar -czf $TB_ID-linux.tgz ../output
-	mv $TB_ID-linux.tgz ../output/
 }
 
 make_uboot () {
@@ -92,15 +89,15 @@ build_help () {
 	echo ' buildtypes (optional):'
 	echo '   all, corefs, linux, uboot, clean'
 	echo ' board-targets (required):'
-	ls board-targets/*/board.conf | cut -d '/' -f 2 | sed 's/^/   /g'
+	ls boards/*/board.conf | cut -d '/' -f 2 | sed 's/^/   /g'
 }
 
 # Check Target Exists
 if [ "$TARGET" == "clean" ]; then
 	make_clean
 else
-	if [ -f board-targets/"$TARGET"/board.conf ]; then
-		source board-targets/"$TARGET"/board.conf
+	if [ -f boards/"$TARGET"/board.conf ]; then
+		source boards/"$TARGET"/board.conf
 		build_config
 		build
 	else
