@@ -50,7 +50,7 @@ make_all () {
 	make active_defconfig
 	make
 	cp output/images/* ../output/
-	tar -czf $TB_ID-all.tgz ../output
+	tar -czf ../$TB_ID-all.tgz ../output
 }
 
 make_corefs () {
@@ -59,7 +59,6 @@ make_corefs () {
 	make active_defconfig
 	make
 	cp output/images/* ../output/
-	tar -czf $TB_ID-corefs.tgz ../output
 }
 
 make_linux () {
@@ -67,7 +66,6 @@ make_linux () {
 	make active_defconfig
 	make linux-build
 	cp output/images/* ../output/
-	tar -czf $TB_ID-linux.tgz ../output
 }
 
 make_uboot () {
