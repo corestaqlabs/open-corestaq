@@ -1,6 +1,5 @@
-menu "Target packages"
+menu "CoreFS Packages"
 
-	source "package/busybox/Config.in"
 	source "package/skeleton/Config.in"
 	source "package/skeleton-custom/Config.in"
 	source "package/skeleton-init-common/Config.in"
@@ -8,6 +7,28 @@ menu "Target packages"
 	source "package/skeleton-init-systemd/Config.in"
 	source "package/skeleton-init-sysv/Config.in"
 
+menu "System Base"
+	menu "busybox settings"
+		source "package/busybox/Config.in"
+	endmenu
+	menu "iotfapd"
+#		source "package/iotfapd/Config.in"
+#		source "package/fapscript/Config.in"
+	endmenu
+	menu "ssh client / server"
+		source "package/dropbear/Config.in"
+	endmenu
+	source "package/stunnel/Config.in"
+	source "package/sudo/Config.in"
+	menu "wireless support"
+		source "package/wireless_tools/Config.in"
+		source "package/wpa_supplicant/Config.in"
+		source "package/wireless-regdb/Config.in"
+	endmenu
+endmenu
+
+
+menu "Untested"
 menu "Audio and video applications"
 	source "package/alsa-utils/Config.in"
 	source "package/atest/Config.in"
@@ -1666,7 +1687,6 @@ menu "Networking applications"
 	source "package/dhcpdump/Config.in"
 	source "package/dnsmasq/Config.in"
 	source "package/drbd-utils/Config.in"
-	source "package/dropbear/Config.in"
 	source "package/ebtables/Config.in"
 	source "package/ejabberd/Config.in"
 	source "package/ethtool/Config.in"
@@ -1820,7 +1840,6 @@ endif
 	source "package/sshpass/Config.in"
 	source "package/sslh/Config.in"
 	source "package/strongswan/Config.in"
-	source "package/stunnel/Config.in"
 	source "package/tcpdump/Config.in"
 	source "package/tcping/Config.in"
 	source "package/tcpreplay/Config.in"
@@ -1850,10 +1869,7 @@ endif
 	source "package/wget/Config.in"
 	source "package/whois/Config.in"
 	source "package/wireguard/Config.in"
-	source "package/wireless-regdb/Config.in"
-	source "package/wireless_tools/Config.in"
 	source "package/wireshark/Config.in"
-	source "package/wpa_supplicant/Config.in"
 	source "package/wpan-tools/Config.in"
 	source "package/xinetd/Config.in"
 	source "package/xl2tp/Config.in"
@@ -1918,7 +1934,6 @@ comment "Utilities"
 	source "package/pinentry/Config.in"
 	source "package/ranger/Config.in"
 	source "package/screen/Config.in"
-	source "package/sudo/Config.in"
 	source "package/terminology/Config.in"
 	source "package/time/Config.in"
 	source "package/tmux/Config.in"
@@ -2009,5 +2024,5 @@ menu "Text editors and viewers"
 	source "package/uemacs/Config.in"
 	source "package/vim/Config.in"
 endmenu
-
+endmenu
 endmenu
