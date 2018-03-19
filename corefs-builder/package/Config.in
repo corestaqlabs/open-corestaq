@@ -7,26 +7,6 @@ menu "CoreFS Packages"
 	source "package/skeleton-init-systemd/Config.in"
 	source "package/skeleton-init-sysv/Config.in"
 
-menu "System Base"
-	menu "busybox settings"
-		source "package/busybox/Config.in"
-	endmenu
-	menu "iotfapd"
-#		source "package/iotfapd/Config.in"
-#		source "package/fapscript/Config.in"
-	endmenu
-	menu "ssh client / server"
-		source "package/dropbear/Config.in"
-	endmenu
-	source "package/stunnel/Config.in"
-	source "package/sudo/Config.in"
-	menu "wireless support"
-		source "package/wireless_tools/Config.in"
-		source "package/wpa_supplicant/Config.in"
-		source "package/wireless-regdb/Config.in"
-	endmenu
-endmenu
-
 
 menu "Untested"
 menu "Audio and video applications"
