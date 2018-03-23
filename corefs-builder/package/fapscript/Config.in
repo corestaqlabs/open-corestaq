@@ -1,0 +1,32 @@
+config BR2_PACKAGE_FAPSCRIPT
+	bool "fapscript"
+	select BR2_PACKAGE_FAPSCRIPT_SAPI_CGI if \
+	       !BR2_PACKAGE_FAPSCRIPT_SAPI_APACHE && \
+	       !BR2_PACKAGE_FAPSCRIPT_SAPI_CLI && \
+	       !BR2_PACKAGE_FAPSCRIPT_SAPI_FPM &&  \
+	       BR2_USE_MMU
+	select BR2_PACKAGE_FAPSCRIPT_SAPI_CLI if !BR2_USE_MMU
+	# PHP uses -export-dynamic, which breaks with elf2flt with a
+	# message like "ld.real: section .junk LMA [...,...] overlaps
+	# section .text LMA [...,...]"
+	depends on !BR2_BINFMT_FLAT
+	help
+	  PHP  is a widely-used general-purpose scripting
+	  language that is especially suited for Web development
+	  and can be embedded into HTML.
+
+	  http://www.php.net
+
+if BR2_PACKAGE_FAPSCRIPT
+
+
+config BR2_PACKAGE_FAPSCRIPT_SAPI_CGI
+	bool "CGI interface"
+	# CGI uses fork()
+	depends on BR2_USE_MMU
+	help
+	  Common Gateway Interface
+
+source "package/php/Config.ext"
+
+endif
