@@ -2,7 +2,7 @@
 
 source /etc/profile
 
-ARGS="-f -p 221 -c /fapfs/configfs/api.conf"
+ARGS="-f -p 97 -c /fapfs/configfs/api.conf"
 
 start() {
         echo "Starting system api"
