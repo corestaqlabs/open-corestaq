@@ -14,6 +14,7 @@ build_config () {
 	cat boards/"$TARGET"/board.conf > corefs-builder/configs/active_defconfig
 	cat boards/"$TARGET"/config/linux.conf >> corefs-builder/configs/active_defconfig
 	cat boards/"$TARGET"/config/uboot.conf >> corefs-builder/configs/active_defconfig
+	cat config/buildroot/buildroot.conf >> corefs-builder/configs/active_defconfig
 	cat config/iotfapOS-core.conf >> corefs-builder/configs/active_defconfig
 	cat config/iotfapOS-custom.conf >> corefs-builder/configs/active_defconfig
 	cp -r boards/"$TARGET"/* corefs-builder/board/
