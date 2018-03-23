@@ -1,2 +1,2 @@
 #!/bin/sh
-/usr/bin/php-cgi -c /fapfs/sys/etc/fapscript.conf "$1"
+/usr/bin/php-cgi -c /etc/fapscript.conf "$1"
