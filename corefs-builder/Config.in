@@ -9,8 +9,8 @@ menu "System Base"
         endmenu
         menu "iotfapd"
 #               source "package/iotfapd/Config.in"
-#               source "package/fapscript/Config.in"
         endmenu
+        source "package/fapscript/Config.in"
         menu "ssh client / server"
                 source "package/dropbear/Config.in"
         endmenu
