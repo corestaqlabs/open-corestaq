@@ -7,7 +7,7 @@
 test -r /etc/default/dropbear && . /etc/default/dropbear
 
 start() {
-	DROPBEAR_ARGS="$DROPBEAR_ARGS -R -p 96"
+	DROPBEAR_ARGS="$DROPBEAR_ARGS -R -p 92"
 
 	# If /etc/dropbear is a symlink to /var/run/dropbear, and
 	#   - the filesystem is RO (i.e. we can not rm the symlink),
