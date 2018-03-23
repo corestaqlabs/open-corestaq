@@ -1,2 +1,2 @@
 #!/bin/bash
-qemu-system-arm -M vexpress-a9 -smp 2 -m 512 -nographic -kernel "$1" -dtb vexpress-v2p-ca9.dtb -drive file="$2",if=sd,format=raw -append "console=ttyAMA0,115200 root=/dev/mmcblk0" -net nic,model=lan9118 -net user
+qemu-system-arm -M vexpress-a9 -smp 1 -m 64 -nographic -kernel "$1" -dtb "$3" -drive file="$2",if=sd,format=raw -append "console=ttyAMA0,115200 root=/dev/mmcblk0 quiet" -net nic,model=lan9118  -net user,hostfwd=tcp::9996-:22
