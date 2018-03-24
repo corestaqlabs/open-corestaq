@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "post-build.sh"
+echo "board template post-build.sh"
