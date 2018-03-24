@@ -49,7 +49,7 @@ esac
 make_all () {
 	cd corefs-builder
 	make active_defconfig
-	make
+	make -s
 	cp output/images/* ../output/
 	tar -czf ../$TB_ID-all.tgz ../output
 }
@@ -58,14 +58,14 @@ make_corefs () {
 	sed -i 's/BR2_LINUX_KERNEL=y/BR2_LINUX_KERNEL=n/g' corefs-builder/configs/active_defconfig
 	cd corefs-builder
 	make active_defconfig
-	make
+	make -s
 	cp output/images/* ../output/
 }
 
 make_linux () {
 	cd corefs-builder
 	make active_defconfig
-	make linux-build
+	make -s linux-build
 	cp output/images/* ../output/
 }
 
@@ -75,7 +75,7 @@ make_uboot () {
 
 make_clean () {
 	cd corefs-builder
-	make clean
+	make distclean
 }
 
 make_none () {
