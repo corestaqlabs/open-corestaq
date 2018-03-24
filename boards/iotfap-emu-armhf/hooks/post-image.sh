@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "post-image.sh"
+echo "board template post-image.sh"
