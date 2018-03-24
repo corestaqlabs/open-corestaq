@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "fakeroot.sh"
+echo "board template fakeroot.sh"
