@@ -1,4 +1,4 @@
-menu "Moduless"
+menu "Modules"
 
 config BR2_PACKAGE_PHP_EXT_CALENDAR
 	bool "Calendar"
