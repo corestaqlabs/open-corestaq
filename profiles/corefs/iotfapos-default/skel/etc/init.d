@@ -1,1 +1,1 @@
-../fapfs/configfs/init.d
+../fapfs/configfs/system/init.d
