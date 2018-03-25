@@ -1,4 +1,4 @@
-menu "CoreFS Output Format"
+menu "Output Image"
 
 source "fs/axfs/Config.in"
 source "fs/cloop/Config.in"
