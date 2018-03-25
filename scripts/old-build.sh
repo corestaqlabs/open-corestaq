@@ -21,6 +21,12 @@ build_config () {
 	cp -r config/* corefs-builder/configs/
 	cp -r config/skel/* corefs-builder/system/skeleton/
 	cp -r boards/"$TARGET"/skel/* corefs-builder/system/skeleton/
+	COREFS_SIZE=`cat corefs-builder/board/board.conf | grep TB_COREFS_SIZE | cut -d "=" -f 2 | sed "s/\"//g"`
+	echo "==========================================="
+	echo $COREFS_SIZE
+	if [ ! -z "$COREFS_SIZE" ]; then
+		sed -i "s/32M/$COREFS_SIZE/g" corefs-builder/configs/active_defconfig
+	fi
 }
 
 build () {
@@ -51,7 +57,6 @@ make_all () {
 	make active_defconfig
 	make -s
 	cp output/images/* ../output/
-	tar -czf ../$TB_ID-all.tgz ../output
 }
 
 make_corefs () {
