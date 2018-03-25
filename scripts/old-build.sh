@@ -75,7 +75,7 @@ make_uboot () {
 
 make_clean () {
 	cd corefs-builder
-	make distclean
+	make clean
 }
 
 make_none () {
