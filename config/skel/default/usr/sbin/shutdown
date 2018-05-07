@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ "$1" == '-r' ]; then
+        reboot
+else
+        poweroff
+fi
+
