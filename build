@@ -1,0 +1,39 @@
+#
+TB="$1"
+CFG="builder/configs/"
+BCFG="builder/configs/board"
+
+activate_config () {
+    cp -R config/* "$CFG"
+    cp -R templates/skel/default "$CFG"skel
+    cp -R templates/board/"$TB" "$BCFG"
+    cp -R builder/configs/board/skel/* builder/configs/skel/
+
+    cat "$CFG"build.conf > "$CFG"iotfapos_defconfig
+    cat "$CFG"board/board.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"iotfapOS-core.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"board/config/linux.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"board/config/uboot.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"mydevice.conf >> "$CFG"iotfapos_defconfig
+    
+    cd builder && make iotfapos_defconfig
+    
+    echo "Build config for $TB ready"
+}
+
+helpme () {
+    echo 'Use: build board-template [action]'
+	echo ' board-templates (required):'
+	ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g'
+    echo ' action (optional, defaults to activate):'
+	echo '  activate, clean, corefs, oemfs, kernel, uboot, image, all'
+}
+
+if [ -f templates/board/"$TB"/board.conf ]; then
+	source templates/board/"$TB"/board.conf
+	rm -rf "$CFG"*
+	rm -rf output/*
+	activate_config
+else
+	helpme	
+fi
