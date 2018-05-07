@@ -26,7 +26,7 @@ helpme () {
 	echo ' board-templates (required):'
 	ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g'
     echo ' action (optional, defaults to activate):'
-	echo '  activate, clean, corefs, oemfs, kernel, uboot, image, all'
+	echo '  activate, clean, distclean, corefs, oemfs, kernel, uboot, image, all'
 }
 
 if [ -f templates/board/"$TB"/board.conf ]; then
