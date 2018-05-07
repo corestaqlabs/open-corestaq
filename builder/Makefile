@@ -987,7 +987,8 @@ printvars:
 clean:
 	rm -rf $(TARGET_DIR) $(BINARIES_DIR) $(HOST_DIR) \
 		$(BUILD_DIR) $(BASE_DIR)/staging \
-		$(LEGAL_INFO_DIR) $(GRAPHS_DIR)
+		$(LEGAL_INFO_DIR) $(GRAPHS_DIR) \
+		$(TOPDIR)/configs/* $(TOPDIR)/../output/*
 
 .PHONY: distclean
 distclean: clean
@@ -995,7 +996,8 @@ ifeq ($(O),$(CURDIR)/output)
 	rm -rf $(O)
 endif
 	rm -rf $(TOPDIR)/dl $(BR2_CONFIG) $(CONFIG_DIR)/.config.old $(CONFIG_DIR)/..config.tmp \
-		$(CONFIG_DIR)/.auto.deps $(BR2_EXTERNAL_FILE)
+		$(CONFIG_DIR)/.auto.deps $(BR2_EXTERNAL_FILE) \
+		$(TOPDIR)/configs/* $(TOPDIR)/../output/*
 
 .PHONY: help
 help:
