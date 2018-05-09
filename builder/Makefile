@@ -988,7 +988,7 @@ clean:
 	rm -rf $(TARGET_DIR) $(BINARIES_DIR) $(HOST_DIR) \
 		$(BUILD_DIR) $(BASE_DIR)/staging \
 		$(LEGAL_INFO_DIR) $(GRAPHS_DIR) \
-		$(TOPDIR)/configs/* $(TOPDIR)/../output/*
+		$(TOPDIR)/configs/* $(TOPDIR)/../output/* $(TOPDIR)/system/skeleton/*
 
 .PHONY: distclean
 distclean: clean
@@ -997,7 +997,7 @@ ifeq ($(O),$(CURDIR)/output)
 endif
 	rm -rf $(TOPDIR)/dl $(BR2_CONFIG) $(CONFIG_DIR)/.config.old $(CONFIG_DIR)/..config.tmp \
 		$(CONFIG_DIR)/.auto.deps $(BR2_EXTERNAL_FILE) \
-		$(TOPDIR)/configs/* $(TOPDIR)/../output/*
+		$(TOPDIR)/configs/* $(TOPDIR)/../output/* $(TOPDIR)/system/skeleton/*
 
 .PHONY: help
 help:
