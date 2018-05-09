@@ -2,7 +2,7 @@
 
 source /etc/profile
 
-ARGS="-f -p 999 -c /fapfs/configfs/www-webapp.conf"
+ARGS="-f -p 999 -c /fapfs/configfs/system/www-webapp.conf"
 
 start() {
         echo "Starting system webapp"
