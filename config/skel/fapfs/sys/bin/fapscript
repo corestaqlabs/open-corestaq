@@ -1,2 +1,0 @@
-#!/bin/sh
-/usr/bin/php-cgi -c /etc/fapscript.conf "$1"

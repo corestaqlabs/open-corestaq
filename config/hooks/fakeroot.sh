@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "fakeroot.sh"
 
-board/hooks/fakeroot.sh
+configs/board/hooks/fakeroot.sh

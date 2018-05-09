@@ -1,111 +1,52 @@
 #!/bin/bash
-#
-# temp build script
-#
 
-TARGET="$1"
-BUILD="$2"
+CFG="builder/configs/"
+BCFG="builder/configs/board"
+TB="$1"
+AC="$2"
 
-build_config () {
-	rm -rf corefs-builder/configs/*
-	rm -rf corefs-builder/board/*
-	rm -rf output/*
-	rm -rf corefs-builder/system/skeleton/*
-	cat boards/"$TARGET"/board.conf > corefs-builder/configs/active_defconfig
-	cat boards/"$TARGET"/config/linux.conf >> corefs-builder/configs/active_defconfig
-	cat boards/"$TARGET"/config/uboot.conf >> corefs-builder/configs/active_defconfig
-	cat config/buildroot/buildroot.conf >> corefs-builder/configs/active_defconfig
-	cat config/iotfapOS-core.conf >> corefs-builder/configs/active_defconfig
-	cat config/iotfapOS-custom.conf >> corefs-builder/configs/active_defconfig
-	cp -r boards/"$TARGET"/* corefs-builder/board/
-	cp -r config/* corefs-builder/configs/
-	cp -r config/skel/* corefs-builder/system/skeleton/
-	cp -r boards/"$TARGET"/skel/* corefs-builder/system/skeleton/
-	COREFS_SIZE=`cat corefs-builder/board/board.conf | grep TB_COREFS_SIZE | cut -d "=" -f 2 | sed "s/\"//g"`
-	if [ ! -z "$COREFS_SIZE" ]; then
-		sed -i "s/32M/$COREFS_SIZE/g" corefs-builder/configs/active_defconfig
-	fi
+activate_config () {
+    source iotfapOS.conf
+	source templates/board/"$TB"/board.conf
+	
+	rm -rf "$CFG"* builder/system/skeleton/* builder/output/images/* output/*
+	
+    cp -R config/* "$CFG"
+    cp -R templates/skeleton/default/* builder/system/skeleton/
+    cp -R templates/board/"$TB" "$BCFG"
+    cp -R "$BCFG"/skeleton/* builder/system/skeleton/
+
+    cat "$CFG"build.conf > "$CFG"iotfapos_defconfig
+    cat "$CFG"board/board.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"iotfapOS-core.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"board/config/linux.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"board/config/uboot.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"mydevice.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"board/config/apps.conf >> "$CFG"iotfapos_defconfig
+    
+    cd builder && make iotfapos_defconfig
+    
+    echo "Build config for $TB ready"
 }
 
-build () {
-	case "$BUILD" in 
-		all)
-			make_all
-			;;
-		linux)
-			make_linux
-			;;
-		corefs)
-			make_corefs
-			;;
-		uboot)
-			make_uboot
-			;;
-		clean)
-			make_clean
-			;;
-		*)
-			make_edit
-			;;
-esac
+clean_config () {
+    cd builder && make clean && make distclean
 }
 
-make_all () {
-	cd corefs-builder
-	make active_defconfig
-	make -s
-	cp output/images/* ../output/
+helpme () {
+    echo 'Use: build board-template [action]'
+	echo ' board-templates (required):'
+	ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
+    echo ' action (optional, defaults to activate):'
+	echo '  activate, clean, corefs, oemfs, kernel, uboot, image, all'
 }
 
-make_corefs () {
-	sed -i 's/BR2_LINUX_KERNEL=y/BR2_LINUX_KERNEL=n/g' corefs-builder/configs/active_defconfig
-	cd corefs-builder
-	make active_defconfig
-	make -s
-	cp output/images/* ../output/
-}
-
-make_linux () {
-	cd corefs-builder
-	make active_defconfig
-	make -s linux-build
-	cp output/images/* ../output/
-}
-
-make_uboot () {
-	echo "booted"
-}
-
-make_clean () {
-	cd corefs-builder
-	make clean
-}
-
-make_edit () {
-	cd corefs-builder
-	make active_defconfig
-	make menuconfig
-}
-
-build_help () {
-	echo 'Use: build board-target buildtype [profile]'
-	echo ' board-targets (required):'
-	ls boards/*/board.conf | cut -d '/' -f 2 | sed 's/^/   /g'
-	echo ' buildtype (optional):'
-	echo '  edit, all, corefs, linux, uboot, clean'
-	echo ' profiles (optional):'
-	ls profiles/corefs/*/iotfapOS-core.conf | cut -d '/' -f 3 | sed 's/^/   /g'
-}
-
-# Check Target Exists
-if [ "$TARGET" == "clean" ]; then
-	make_clean
+if [ -f templates/board/"$TB"/board.conf ]; then
+	activate_config
 else
-	if [ -f boards/"$TARGET"/board.conf ]; then
-		source boards/"$TARGET"/board.conf
-		build_config
-		build
-	else
-		build_help	
-	fi
+    if [ "$TB" == "clean" ]; then
+        clean_config
+    else
+        helpme
+    fi
 fi
