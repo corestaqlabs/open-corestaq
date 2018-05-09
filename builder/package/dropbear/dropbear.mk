@@ -59,15 +59,6 @@ define DROPBEAR_INSTALL_INIT_SYSTEMD
 		$(TARGET_DIR)/etc/systemd/system/multi-user.target.wants/dropbear.service
 endef
 
-ifeq ($(BR2_USE_MMU),y)
-define DROPBEAR_INSTALL_INIT_SYSV
-	$(INSTALL) -D -m 755 package/dropbear/S50dropbear \
-		$(TARGET_DIR)/etc/init.d/S50dropbear
-endef
-else
-DROPBEAR_POST_EXTRACT_HOOKS += DROPBEAR_DISABLE_STANDALONE
-endif
-
 ifeq ($(BR2_PACKAGE_DROPBEAR_DISABLE_REVERSEDNS),)
 DROPBEAR_POST_EXTRACT_HOOKS += DROPBEAR_ENABLE_REVERSE_DNS
 endif

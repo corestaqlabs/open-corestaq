@@ -1,13 +1,20 @@
-#
-TB="$1"
+#!/bin/bash
+
 CFG="builder/configs/"
 BCFG="builder/configs/board"
+TB="$1"
+AC="$2"
 
 activate_config () {
+    source iotfapOS.conf
+	source templates/board/"$TB"/board.conf
+	
+	rm -rf "$CFG"* builder/system/skeleton/* builder/output/images/* output/*
+	
     cp -R config/* "$CFG"
-    cp -R templates/skel/default "$CFG"skel
+    cp -R templates/skeleton/default/* builder/system/skeleton/
     cp -R templates/board/"$TB" "$BCFG"
-    cp -R builder/configs/board/skel/* builder/configs/skel/
+    cp -R "$BCFG"/skeleton/* builder/system/skeleton/
 
     cat "$CFG"build.conf > "$CFG"iotfapos_defconfig
     cat "$CFG"board/board.conf >> "$CFG"iotfapos_defconfig
@@ -15,25 +22,31 @@ activate_config () {
     cat "$CFG"board/config/linux.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"board/config/uboot.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"mydevice.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"board/config/apps.conf >> "$CFG"iotfapos_defconfig
     
     cd builder && make iotfapos_defconfig
     
     echo "Build config for $TB ready"
 }
 
+clean_config () {
+    cd builder && make clean && make distclean
+}
+
 helpme () {
     echo 'Use: build board-template [action]'
 	echo ' board-templates (required):'
-	ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g'
+	ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
     echo ' action (optional, defaults to activate):'
-	echo '  activate, clean, distclean, corefs, oemfs, kernel, uboot, image, all'
+	echo '  activate, clean, corefs, oemfs, kernel, uboot, image, all'
 }
 
 if [ -f templates/board/"$TB"/board.conf ]; then
-	source templates/board/"$TB"/board.conf
-	rm -rf "$CFG"*
-	rm -rf output/*
 	activate_config
 else
-	helpme	
+    if [ "$TB" == "clean" ]; then
+        clean_config
+    else
+        helpme
+    fi
 fi

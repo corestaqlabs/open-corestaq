@@ -1,3 +1,16 @@
 #!/bin/bash
-qemu-system-arm -M vexpress-a9 -smp 2 -m 256 -nographic -kernel sys.k -dtb sys.dtb  -drive file=corefs.img,if=sd,format=raw -append "console=ttyAMA0,115200 root=/dev/mmcblk0 quiet" -net nic,model=lan9118  -net user,hostfwd=tcp::9992-:22
+NCPU="2"
+NRAM="256"
 
+if [[ -n "$1" ]]; then
+    COREFS="$1"
+else
+    COREFS="corefs.img"
+fi
+
+
+if [[ -f sys.k && -f sys.dtb ]]; then
+    qemu-system-arm -M vexpress-a9 -smp $NCPU -m $NRAM -nographic -kernel sys.k -dtb sys.dtb  -drive file="$COREFS",if=sd,format=raw -append "console=ttyAMA0,115200 root=/dev/mmcblk0 quiet" -net nic,model=lan9118  -net user,hostfwd=tcp::9995-:995,hostfwd=tcp::9996-:996,hostfwd=tcp::9997-:997,hostfwd=tcp::9998-:998,hostfwd=tcp::9999-:999
+else
+    echo "Error: Kernel or DTB file missing (sys.k, sys.dtb)"
+fi
