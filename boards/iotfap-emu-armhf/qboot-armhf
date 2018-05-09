@@ -1,3 +1,0 @@
-#!/bin/bash
-qemu-system-arm -M vexpress-a9 -smp 2 -m 128 -nographic -kernel "$1" -dtb "$3" -drive file="$2",if=sd,format=raw -append "console=ttyAMA0,115200 root=/dev/mmcblk0 quiet" -net nic,model=lan9118  -net user,hostfwd=tcp::9992-:92,hostfwd=tcp::9996-:96,hostfwd=tcp::9997-:97,hostfwd=tcp::9998-:98,hostfwd=tcp::9999-:99
-
