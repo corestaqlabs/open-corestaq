@@ -220,7 +220,7 @@ endif
 define BUSYBOX_INSTALL_LOGGING_SCRIPT
 	if grep -q CONFIG_SYSLOGD=y $(@D)/.config; then \
 		$(INSTALL) -m 0755 -D package/busybox/S01logging \
-			$(TARGET_DIR)/etc/init.d/S01logging; \
+			$(TARGET_DIR)/etc/init.d/S01-logd; \
 	fi
 endef
 
@@ -236,9 +236,9 @@ define BUSYBOX_SET_WATCHDOG
 endef
 define BUSYBOX_INSTALL_WATCHDOG_SCRIPT
 	$(INSTALL) -D -m 0755 package/busybox/S15watchdog \
-		$(TARGET_DIR)/etc/init.d/S15watchdog
+		$(TARGET_DIR)/etc/init.d/S03-watchdog
 	$(SED) s/PERIOD/$(call qstrip,$(BR2_PACKAGE_BUSYBOX_WATCHDOG_PERIOD))/ \
-		$(TARGET_DIR)/etc/init.d/S15watchdog
+		$(TARGET_DIR)/etc/init.d/S03-watchdog
 endef
 endif
 

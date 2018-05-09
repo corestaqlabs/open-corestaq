@@ -36,10 +36,6 @@ define IFUPDOWN_SCRIPTS_INSTALL_TARGET_CMDS
 	$(IFUPDOWN_SCRIPTS_DHCP)
 endef
 
-define IFUPDOWN_SCRIPTS_INSTALL_INIT_SYSV
-	$(INSTALL) -D -m 0755 $(IFUPDOWN_SCRIPTS_PKGDIR)/S40network \
-		$(TARGET_DIR)/etc/init.d/S40network
-endef
 
 # ifupdown-scripts can not be selected when systemd-networkd is
 # enabled, so if we are enabled with systemd, we must install our

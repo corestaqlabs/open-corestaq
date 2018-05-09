@@ -1,20 +1,16 @@
 #!/bin/sh
-#
-# Start the network....
-#
 
-# Debian ifupdown needs the /run/network lock directory
 mkdir -p /run/network
 
 case "$1" in
   start)
-	printf "Starting network: "
-	/sbin/ifup -a
+	printf "Starting local network: "
+	/sbin/ifup lo
 	[ $? = 0 ] && echo "OK" || echo "FAIL"
 	;;
   stop)
-	printf "Stopping network: "
-	/sbin/ifdown -a
+	printf "Stopping local network: "
+	/sbin/ifdown lo
 	[ $? = 0 ] && echo "OK" || echo "FAIL"
 	;;
   restart|reload)
