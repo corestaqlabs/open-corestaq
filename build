@@ -6,7 +6,7 @@ TB="$1"
 AC="$2"
 
 activate_config () {
-    source iotfapOS.conf
+	source iotfapOS.conf
 	source templates/board/"$TB"/board.conf
 	
 	rm -rf "$CFG"* builder/system/skeleton/* builder/output/images/* output/*
