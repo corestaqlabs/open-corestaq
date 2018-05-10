@@ -35,6 +35,7 @@ endef
 define WIRELESS_TOOLS_INSTALL_TARGET_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D) PREFIX="$(TARGET_DIR)" LDCONFIG=/bin/true \
 		$(WIRELESS_TOOLS_INSTALL_TARGETS)
+	cat package/wireless_tools/interfaces > output/target/etc/network/interfaces
 endef
 
 $(eval $(generic-package))
