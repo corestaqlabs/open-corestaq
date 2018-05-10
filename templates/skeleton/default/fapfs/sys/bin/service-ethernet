@@ -5,14 +5,12 @@ mkdir -p /run/network
 case "$1" in
   start)
         printf "Starting network on eth0: "
-        /usr/sbin/ifconfig eth0 up
-        /usr/sbin/udhcpc -i eth0 -p /var/run/eth0.pid -R -b -S
+        /sbin/ifup eth0
         [ $? = 0 ] && echo "OK" || echo "FAIL"
         ;;
   stop)
         printf "Stopping network on eth0: "
-        kill -9 `cat /var/run/eth0.pid` && rm /var/run/eth0.pid
-        /usr/sbin/ifconfig eth0 down
+        /sbin/ifdown eth0
         [ $? = 0 ] && echo "OK" || echo "FAIL"
         ;;
   restart|reload)
