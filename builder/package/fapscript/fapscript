@@ -1,0 +1,2 @@
+#!/bin/sh
+/usr/bin/php-embed -qC -c /etc/fapscript.conf "$1"
