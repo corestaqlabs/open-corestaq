@@ -62,16 +62,21 @@ make_config () {
 }
 
 helpme () {
-    echo 'Use:'
-    echo './build clean|all|corefs|linux|uboot|oemfs board-template [action]'
+	echo 'Use:'
+	echo './build buildtype board-template [action]'
+	echo ' '
+	echo 'Build Type:'
+	echo '   clean - cleans build environment'
+	echo '   all - builds all output images for selected board'
+	echo '   corefs|linux|uboot|oemfs - TODO'
 	echo ' '
 	echo 'Available board-templates (required):'
 	ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
 	echo ' '
-    echo 'Actions (defaults to activate):'
+	echo 'Actions (defaults to activate):'
 	echo '   activate - configures build ready to work with'
 	echo '   edit - Edit build config and package selection'
-    echo '   make - Actually builds'
+	echo '   make - Actually builds'
 }
 
 ####
