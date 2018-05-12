@@ -11,7 +11,7 @@ activate_config () {
 	source iotfapOS.conf
 	source templates/board/"$BBT"/board.conf
 	
-	rm -rf "$CFG"* builder/system/skeleton/* builder/output/images/* output/*
+	rm -rf "$CFG"* builder/system/skeleton/* output/*
 	
     cp -R config/* "$CFG"
     cp -R templates/skeleton/default/* builder/system/skeleton/

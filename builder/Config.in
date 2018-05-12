@@ -881,6 +881,7 @@ menu "CoreFS Packages"
 endmenu
 
 menu "Board / SoC Specific Packages"
+    source "configs/board/package/Config.in
 endmenu
 
 menu "IOTFAP Management Tools (Recomended)"
