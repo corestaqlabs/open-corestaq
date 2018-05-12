@@ -1,4 +1,4 @@
-menu "Kernel"
+menu "Kernel Config"
 
 config BR2_LINUX_KERNEL
 	bool "Linux Kernel"

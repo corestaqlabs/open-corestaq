@@ -1,4 +1,4 @@
-menu "Bootloaders"
+menu "Bootloader Config"
 
 source "boot/afboot-stm32/Config.in"
 source "boot/at91bootstrap/Config.in"

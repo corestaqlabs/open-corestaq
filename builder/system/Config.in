@@ -1,4 +1,4 @@
-menu "System configuration"
+menu "Core System Config"
 
 # Note: usually, it is not possible to select a provider of a virtual
 # package. But here we have an exception: there are only four providers
@@ -41,7 +41,7 @@ if BR2_ROOTFS_SKELETON_DEFAULT
 
 config BR2_TARGET_GENERIC_HOSTNAME
 	string "System hostname"
-	default "buildroot"
+	default "iotfapos"
 	help
 	  Select system hostname to be stored in /etc/hostname.
 
@@ -50,7 +50,7 @@ config BR2_TARGET_GENERIC_HOSTNAME
 
 config BR2_TARGET_GENERIC_ISSUE
 	string "System banner"
-	default "Welcome to Buildroot"
+	default "Welcome to iotfapOS"
 	help
 	  Select system banner (/etc/issue) to be displayed at login.
 
@@ -592,5 +592,5 @@ config BR2_ROOTFS_POST_SCRIPT_ARGS
 	  argument to each post-build or post-image script is the target
 	  directory / images directory. The arguments in this option will be
 	  passed *after* those.
-
+source "package/busybox/Config.in"
 endmenu

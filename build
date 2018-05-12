@@ -1,19 +1,21 @@
 #!/bin/bash
 
+BTP="$1"
+BBT="$2"
+BAC="$3"
+
 CFG="builder/configs/"
 BCFG="builder/configs/board"
-TB="$1"
-AC="$2"
 
 activate_config () {
 	source iotfapOS.conf
-	source templates/board/"$TB"/board.conf
+	source templates/board/"$BBT"/board.conf
 	
 	rm -rf "$CFG"* builder/system/skeleton/* builder/output/images/* output/*
 	
     cp -R config/* "$CFG"
     cp -R templates/skeleton/default/* builder/system/skeleton/
-    cp -R templates/board/"$TB" "$BCFG"
+    cp -R templates/board/"$BBT" "$BCFG"
     cp -R "$BCFG"/skeleton/* builder/system/skeleton/
 
     cat "$CFG"build.conf > "$CFG"iotfapos_defconfig
@@ -26,27 +28,64 @@ activate_config () {
     
     cd builder && make iotfapos_defconfig
     
-    echo "Build config for $TB ready"
+    echo "Build config for $BBT ready"
+}
+
+build_config () {
+    if [ -f templates/board/"$BBT"/board.conf ]; then
+        case "$BAC" in
+            make)
+                make_config
+            ;;
+            edit)
+                edit_config
+            ;;
+            *)
+                activate_config
+            ;;
+        esac
+    else
+        echo "Invalid board template or template not found"
+    fi
 }
 
 clean_config () {
     cd builder && make clean && make distclean
 }
 
-helpme () {
-    echo 'Use: build board-template [action]'
-	echo ' board-templates (required):'
-	ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
-    echo ' action (optional, defaults to activate):'
-	echo '  activate, clean, corefs, oemfs, kernel, uboot, image, all'
+edit_config () {
+    cd builder && make menuconfig
 }
 
-if [ -f templates/board/"$TB"/board.conf ]; then
-	activate_config
-else
-    if [ "$TB" == "clean" ]; then
+make_config () {
+    cd builder && make
+}
+
+helpme () {
+    echo 'Use:'
+    echo './build clean|all|corefs|linux|uboot|oemfs board-template [action]'
+	echo ' '
+	echo 'Available board-templates (required):'
+	ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
+	echo ' '
+    echo 'Actions (defaults to activate):'
+	echo '   activate - configures build ready to work with'
+	echo '   edit - Edit build config and package selection'
+    echo '   make - Actually builds'
+}
+
+####
+case "$BTP" in
+    clean)
         clean_config
-    else
+    ;;
+    all)
+        build_config
+    ;;
+    *)
         helpme
-    fi
-fi
+    ;;
+esac
+
+
+
