@@ -26,7 +26,7 @@ activate_config () {
     cat "$CFG"mydevice.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"board/config/apps.conf >> "$CFG"iotfapos_defconfig
     
-    cd builder && make iotfapos_defconfig
+    cd builder && make iotfapos_defconfig && cd ..
     
     echo "Build config for $BBT ready"
 }
@@ -35,9 +35,11 @@ build_config () {
     if [ -f templates/board/"$BBT"/board.conf ]; then
         case "$BAC" in
             make)
+                activate_config
                 make_config
             ;;
             edit)
+                activate_config
                 edit_config
             ;;
             *)
