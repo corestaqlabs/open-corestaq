@@ -19,8 +19,9 @@ sudo umount output/bootfs && sync
 cp output/images/rootfs.ext2 ../output/corefs.img
 cp output/images/rootfs.tar ../output/sysfs.tar && gzip ../output/sysfs.tar
 cp output/images/rootfs.squashfs ../output/sys.img
-cp output/images/bootfs.img ../output/
-cp output/images/sdcard.img ../output/
 
 support/scripts/genimage.sh -c configs/board/config/sd.conf
+
+cp output/images/bootfs.img ../output/
+cp output/images/sdcard.img ../output/
 
