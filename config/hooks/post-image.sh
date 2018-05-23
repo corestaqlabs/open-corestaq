@@ -23,5 +23,5 @@ cp output/images/rootfs.squashfs ../output/sys.img
 support/scripts/genimage.sh -c configs/board/config/sd.conf
 
 cp output/images/bootfs.img ../output/
-cp output/images/sdcard.img ../output/
+cp output/images/iotfapOS.img ../output/
 
