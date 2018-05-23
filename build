@@ -25,6 +25,7 @@ activate_config () {
     cat "$CFG"board/config/uboot.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"mydevice.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"board/config/apps.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"app-templates.conf >> "$CFG"iotfapos_defconfig
     
     cd builder && make iotfapos_defconfig && cd ..
     
