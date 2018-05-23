@@ -873,15 +873,15 @@ menu "CoreFS Packages"
         source "package/nano/Config.in"
         source "package/screen/Config.in"
     endmenu
-    menu "Scripting / Interpreters"
+    menu "Interpreter & Script Engines"
         source "package/micropython/Config.in"
         source "package/micropython-lib/Config.in"
         source "package/nodejs/Config.in"
     endmenu
 endmenu
 
-menu "Board / SoC Specific Packages"
-    source "configs/board/package/Config.in
+menu "Board Specific Packages"
+    source "configs/board/package/Config.in"
 endmenu
 
 menu "IOTFAP Management Tools (Recomended)"

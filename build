@@ -8,7 +8,7 @@ CFG="builder/configs/"
 BCFG="builder/configs/board"
 
 activate_config () {
-	source iotfapOS.conf
+	source config/iotfapOS.conf
 	source templates/board/"$BBT"/board.conf
 	
 	rm -rf "$CFG"* builder/system/skeleton/* output/*
@@ -20,7 +20,7 @@ activate_config () {
 
     cat "$CFG"build.conf > "$CFG"iotfapos_defconfig
     cat "$CFG"board/board.conf >> "$CFG"iotfapos_defconfig
-    cat "$CFG"iotfapOS-core.conf >> "$CFG"iotfapos_defconfig
+    cat "$CFG"iotfapOS.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"board/config/linux.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"board/config/uboot.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"mydevice.conf >> "$CFG"iotfapos_defconfig
