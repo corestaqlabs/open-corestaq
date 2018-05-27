@@ -1,99 +1,101 @@
 #!/bin/bash
 
-BTP="$1"
+BCMD="$1"
 BBT="$2"
-BAC="$3"
 
 CFG="builder/configs/"
-BCFG="builder/configs/board"
+BCFG="builder/configs/board/"
 
 activate_config () {
-	source config/iotfapOS.conf
-	source templates/board/"$BBT"/board.conf
-	
-	rm -rf "$CFG"* builder/system/skeleton/* output/*
-	
+    source config/iotfapOS.conf
+    source templates/board/"$BBT"/board.conf
+    
+    rm -rf "$CFG"* builder/system/skeleton/* output/*
+    
     cp -R config/* "$CFG"
     cp -R templates/skeleton/default/* builder/system/skeleton/
     cp -R templates/board/"$BBT" "$BCFG"
-    cp -R "$BCFG"/skeleton/* builder/system/skeleton/
+    cp -R "$BCFG"skeleton/* builder/system/skeleton/
 
     cat "$CFG"build.conf > "$CFG"iotfapos_defconfig
     cat "$CFG"board/board.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"iotfapOS.conf >> "$CFG"iotfapos_defconfig
-    cat "$CFG"board/config/linux.conf >> "$CFG"iotfapos_defconfig
-    cat "$CFG"board/config/uboot.conf >> "$CFG"iotfapos_defconfig
+    cat "$BCFG"config/linux.conf >> "$CFG"iotfapos_defconfig
+    cat "$BCFG"config/uboot.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"mydevice.conf >> "$CFG"iotfapos_defconfig
-    cat "$CFG"board/config/apps.conf >> "$CFG"iotfapos_defconfig
+    cat "$BCFG"config/apps.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"app-templates.conf >> "$CFG"iotfapos_defconfig
     
-    cd builder && make iotfapos_defconfig && cd ..
+    cd builder && make iotfapos_defconfig
+    cd ..
     
     echo "Build config for $BBT ready"
 }
 
-build_config () {
-    if [ -f templates/board/"$BBT"/board.conf ]; then
-        case "$BAC" in
-            make)
-                activate_config
-                make_config
-            ;;
-            edit)
-                activate_config
-                edit_config
-            ;;
-            *)
-                activate_config
-            ;;
-        esac
-    else
-        echo "Invalid board template or template not found"
-    fi
-}
 
 clean_config () {
     cd builder && make clean && make distclean
 }
 
+download_config () {
+    activate_config
+    cd builder && make source
+}
+
 edit_config () {
+    activate_config
     cd builder && make menuconfig
 }
 
 make_config () {
+    activate_config
     cd builder && make
 }
 
 helpme () {
-	echo 'Use:'
-	echo './build buildtype board-template [action]'
-	echo ' '
-	echo 'Build Type:'
-	echo '   clean - cleans build environment'
-	echo '   all - builds all output images for selected board'
-	echo '   corefs|linux|uboot|oemfs - TODO'
-	echo ' '
-	echo 'Available board-templates (required):'
-	ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
-	echo ' '
-	echo 'Actions (defaults to activate):'
-	echo '   activate - configures build ready to work with'
-	echo '   edit - Edit build config and package selection'
-	echo '   make - Actually builds'
+    echo 'Use:'
+    echo './build command board-template'
+    echo ' '
+    echo 'Build Commands'
+    echo '   [a]ll - configures and builds all output images for selected board'
+    echo '   [s]etup - configures build system for selected board'
+    echo '   [o]ffline - downloads all sources for selected build'
+    echo '   [e]dit - configures selected board and edit config'
+    echo '   [c]lean - cleans build environment, board template not needed'
+    echo ' '
+    echo 'Available board-templates (required):'
+    ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
+    echo ' '
 }
 
 ####
-case "$BTP" in
-    clean)
-        clean_config
-    ;;
-    all)
-        build_config
-    ;;
-    *)
-        helpme
-    ;;
-esac
-
+if [ -f templates/board/"$BBT"/board.conf ]; then
+    case "$BCMD" in
+        a|all)
+            make_config
+        ;;
+        s|setup)
+            activate_config
+        ;;
+        o|offline)
+            download_config
+        ;;
+        e|edit)
+            edit_config
+        ;;
+        *)
+            helpme
+        ;;
+    esac
+else
+    case "$BCMD" in
+        c|clean)
+            clean_config
+        ;;
+        *)
+            helpme
+        ;;
+    esac
+fi
 
 

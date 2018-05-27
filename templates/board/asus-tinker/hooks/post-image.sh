@@ -10,4 +10,5 @@ sudo install -m 0644 -D configs/board/config/boot.conf output/bootfs/boot/extlin
 cp configs/board/output/* ../output/
 cp output/images/zImage ../output/sys.k
 cp output/images/rk3288-miniarm.dtb ../output/sys.dtb
-cp output/images/u-boot-spl-dtb.img ../output/uboot.img
+cp output/images/u-boot-spl-dtb.bin ../output/uboot-spl.bin
+cp output/images/u-boot-dtb.img ../output/uboot-dtb.img
