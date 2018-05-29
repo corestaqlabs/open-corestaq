@@ -48,7 +48,6 @@ edit_config () {
 }
 
 make_config () {
-    activate_config
     cd builder && make
 }
 
@@ -57,11 +56,16 @@ helpme () {
     echo './build command board-template'
     echo ' '
     echo 'Build Commands'
+    echo '   [s]etup - configures build system for selected board ready for use'
     echo '   [a]ll - configures and builds all output images for selected board'
-    echo '   [s]etup - configures build system for selected board'
-    echo '   [o]ffline - downloads all sources for selected build'
+    echo '   [l]inux - builds linux kernel for selected board #TODO'
+    echo '   [u]boot - builds uboot for selected board #TODO'
+    echo '   [c]orefs - builds corefs for selected board #TODO'
+    echo '   [o]emfs - buildsoemfs for selected board #TODO'
+    echo '   [d]ownload - downloads all sources for selected build'
     echo '   [e]dit - configures selected board and edit config'
-    echo '   [c]lean - cleans build environment, board template not needed'
+    echo '   [r]ebuild - (re)builds current custom config'
+    echo '   [x]clean - cleans build environment, board template not needed'
     echo ' '
     echo 'Available board-templates (required):'
     ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
@@ -72,24 +76,28 @@ helpme () {
 if [ -f templates/board/"$BBT"/board.conf ]; then
     case "$BCMD" in
         a|all)
+            activate_config
             make_config
-        ;;
+            ;;
         s|setup)
             activate_config
-        ;;
-        o|offline)
+            ;;
+        d|download)
             download_config
-        ;;
+            ;;
         e|edit)
             edit_config
-        ;;
+            ;;
+        r|rebuild)
+            make_config
+            ;;
         *)
             helpme
-        ;;
+            ;;
     esac
 else
     case "$BCMD" in
-        c|clean)
+        x|clean)
             clean_config
         ;;
         *)
