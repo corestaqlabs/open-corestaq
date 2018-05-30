@@ -3,7 +3,7 @@ echo "board template post-image.sh"
 
 MKIMAGE=$HOST_DIR/bin/mkimage
 
-touch output/images/uboot.bin
+dd if=/dev/zero of=output/images/uboot.bin bs=1k count=1024
 
 sudo cp output/images/zImage output/bootfs/sys.k
 sudo cp output/images/vexpress-v2p-ca9.dtb output/bootfs/sys.dtb 
