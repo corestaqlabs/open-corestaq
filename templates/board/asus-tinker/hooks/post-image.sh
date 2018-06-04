@@ -10,12 +10,12 @@ wget -q -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/zImag
 wget -q -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/rk3288-miniarm-2.0.5.dtb > output/images/sys.dtb
 wget -q -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/overlays-2.0.5.tgz | tar -xz -C output/images/
 
-sudo cp output/images/sys.dtb output/bootfs/
-sudo cp output/images/sys.k output/bootfs/
-sudo cp -r output/images/overlays output/bootfs/
-sudo cp output/images/hw_intf.conf output/bootfs/
+sudo cp output/images/sys.dtb output/recoveryfs/
+sudo cp output/images/sys.k output/recoveryfs/
+sudo cp -r output/images/overlays output/recoveryfs/
+sudo cp output/images/hw_intf.conf output/recoveryfs/
 
-sudo install -m 0644 -D configs/board/config/boot.conf output/bootfs/extlinux/extlinux.conf
+sudo install -m 0644 -D configs/board/config/boot.conf output/recoveryfs/extlinux/extlinux.conf
 
 cp output/images/sys.k ../output/sys.k
 cp output/images/sys.dtb ../output/sys.dtb

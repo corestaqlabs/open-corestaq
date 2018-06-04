@@ -5,8 +5,8 @@ MKIMAGE=$HOST_DIR/bin/mkimage
 
 dd if=/dev/zero of=output/images/uboot.bin bs=1k count=1024
 
-sudo cp output/images/zImage output/bootfs/sys.k
-sudo cp output/images/vexpress-v2p-ca9.dtb output/bootfs/sys.dtb 
+sudo cp output/images/zImage output/recoveryfs/sys.k
+sudo cp output/images/vexpress-v2p-ca9.dtb output/recoveryfs/sys.dtb 
 
 cp configs/board/output/* ../output/
 cp output/images/zImage ../output/sys.k
