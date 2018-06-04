@@ -51,6 +51,10 @@ make_config () {
     cd builder && make
 }
 
+make_toolchain () {
+    cd builder && make toolchain
+}
+
 helpme () {
     echo 'Use:'
     echo './build command board-template'
@@ -62,6 +66,7 @@ helpme () {
     echo '   [u]boot - builds uboot for selected board #TODO'
     echo '   [c]orefs - builds corefs for selected board #TODO'
     echo '   [o]emfs - buildsoemfs for selected board #TODO'
+    echo '   [t]oolchain - configures and builds [t]oolchain for selected board'
     echo '   [d]ownload - downloads all sources for selected build'
     echo '   [e]dit - configures selected board and edit config'
     echo '   [r]ebuild - (re)builds current custom config'
@@ -90,6 +95,9 @@ if [ -f templates/board/"$BBT"/board.conf ]; then
             ;;
         r|rebuild)
             make_config
+            ;;
+        t|toolchain)
+            make_toolchain
             ;;
         *)
             helpme

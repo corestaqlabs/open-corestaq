@@ -2,16 +2,16 @@
 
 source /etc/profile
 
-ARGS="-f -p 996 -c /fapfs/configfs/system/www-api.conf"
+ARGS="-f -p 996 -c /fapfs/configfs/system/fapd.conf"
 
 start() {
-        echo "Starting system api"
-        start-stop-daemon -S -q -p /var/run/api.pid -m --background --exec /usr/sbin/httpd -- $ARGS
+        echo "Starting fapd"
+        start-stop-daemon -S -q -p /var/run/fapd.pid -m --background --exec /usr/sbin/httpd -- $ARGS
 }
 
 stop() {
-        echo "Stopping system api"
-        start-stop-daemon -K -q -p /var/run/api.pid
+        echo "Stopping fapd"
+        start-stop-daemon -K -q -p /var/run/fapd.pid
 }
 
 restart() {

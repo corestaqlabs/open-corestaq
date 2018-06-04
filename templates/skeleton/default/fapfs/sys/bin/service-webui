@@ -2,7 +2,7 @@
 
 source /etc/profile
 
-ARGS="-f -p 997 -c /fapfs/configfs/system/www-webui.conf"
+ARGS="-f -p 997 -c /fapfs/configfs/system/webui.conf"
 
 start() {
         echo "Starting system webui"

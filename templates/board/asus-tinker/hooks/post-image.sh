@@ -5,10 +5,10 @@ MKIMAGE=$HOST_DIR/bin/mkimage
 
 cp configs/board/output/* ../output/
 
-wget -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/uboot.bin-2.0.5.gz | gunzip > output/images/uboot.bin
-wget -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/zImage-2.0.5 > output/images/sys.k
-wget -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/rk3288-miniarm-2.0.5.dtb > output/images/sys.dtb
-wget -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/overlays-2.0.5.tgz | tar -xz -C output/images/
+wget -q -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/uboot.bin-2.0.5.gz | gunzip > output/images/uboot.bin
+wget -q -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/zImage-2.0.5 > output/images/sys.k
+wget -q -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/rk3288-miniarm-2.0.5.dtb > output/images/sys.dtb
+wget -q -O - https://github.com/iotfap/oem-bsp-repo/raw/master/asus-tinker/overlays-2.0.5.tgz | tar -xz -C output/images/
 
 sudo cp output/images/sys.dtb output/bootfs/
 sudo cp output/images/sys.k output/bootfs/
