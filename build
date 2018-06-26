@@ -55,6 +55,10 @@ make_toolchain () {
     cd builder && make toolchain
 }
 
+make_linux () {
+    cd builder && make linux
+}
+
 helpme () {
     echo 'Use:'
     echo './build command board-template'
@@ -62,10 +66,7 @@ helpme () {
     echo 'Build Commands'
     echo '   [s]etup - configures build system for selected board ready for use'
     echo '   [a]ll - configures and builds all output images for selected board'
-    echo '   [l]inux - builds linux kernel for selected board #TODO'
-    echo '   [u]boot - builds uboot for selected board #TODO'
-    echo '   [c]orefs - builds corefs for selected board #TODO'
-    echo '   [o]emfs - buildsoemfs for selected board #TODO'
+    echo '   [l]inux - builds linux kernel & modules for selected board'
     echo '   [t]oolchain - configures and builds [t]oolchain for selected board'
     echo '   [d]ownload - downloads all sources for selected build'
     echo '   [e]dit - configures selected board and edit config'
@@ -98,6 +99,9 @@ if [ -f templates/board/"$BBT"/board.conf ]; then
             ;;
         t|toolchain)
             make_toolchain
+            ;;
+        l|linux)
+            make_linux
             ;;
         *)
             helpme
