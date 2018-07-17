@@ -66,6 +66,7 @@ make_toolchain () {
 
 make_linux () {
     cd builder && make linux
+    cp -rv output/images/* ../output/
 }
 
 helpme () {
