@@ -67,6 +67,7 @@ make_toolchain () {
 make_linux () {
     cd builder && make linux
     cp -rv output/images/* ../output/
+    cd output/target/usr/lib/modules && tar -cvzf ../../../../../../output/kernel-modules.tgz *
 }
 
 helpme () {
