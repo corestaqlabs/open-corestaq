@@ -40,8 +40,10 @@ activate_config () {
 clean_config () {
     if [ $BCMD = "xx" ]; then
         cd builder && make distclean
+        cd ..
     else
         cd builder && make clean
+        cd ..
     fi
 }
 
@@ -108,10 +110,12 @@ if [ -f templates/board/"$BBT"/board.conf ]; then
             make_config
             ;;
         c|corefs)
+        	clean_config
        		activate_config
             make_config
             ;;
         l|linux)
+        	clean_config
         	activate_config
             make_linux
             ;;
