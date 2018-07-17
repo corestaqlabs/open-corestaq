@@ -34,7 +34,11 @@ activate_config () {
 
 
 clean_config () {
-    cd builder && make clean && make distclean
+    if [ $BCMD = "xx" ]; then
+        cd builder && make distclean
+    else
+        cd builder && make clean
+    fi
 }
 
 download_config () {
@@ -70,7 +74,7 @@ helpme () {
     echo '   [d]ownload - downloads all sources for selected build'
     echo '   [e]dit - configures selected board and edit config'
     echo '   [r]ebuild - (re)builds current custom config'
-    echo '   [x]clean - cleans build environment, board template not needed'
+    echo '   [x|xx]clean|distclean - cleans template or full build environment, board template not needed'
     echo ' '
     echo 'Available board-templates (required):'
     ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
@@ -112,7 +116,7 @@ if [ -f templates/board/"$BBT"/board.conf ]; then
     esac
 else
     case "$BCMD" in
-        x|clean)
+        x|xx|clean)
             clean_config
         ;;
         *)
