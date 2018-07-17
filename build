@@ -38,7 +38,6 @@ clean_config () {
 }
 
 download_config () {
-    activate_config
     cd builder && make source
 }
 
@@ -89,18 +88,22 @@ if [ -f templates/board/"$BBT"/board.conf ]; then
             activate_config
             ;;
         d|download)
+        	activate_config
             download_config
             ;;
         e|edit)
+        	activate_config
             edit_config
             ;;
         r|rebuild)
             make_config
             ;;
         t|toolchain)
+        	activate_config
             make_toolchain
             ;;
         l|linux)
+        	activate_config
             make_linux
             ;;
         *)
@@ -117,5 +120,4 @@ else
         ;;
     esac
 fi
-
 
