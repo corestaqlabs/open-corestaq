@@ -26,6 +26,10 @@ activate_config () {
     cat "$BCFG"config/apps.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"app-templates.conf >> "$CFG"iotfapos_defconfig
     
+    if [ $BCMD = "c" ]; then
+        sed -i "s/BR2_LINUX_KERNEL=y/BR2_LINUX_KERNEL=n/g" builder/configs/iotfapos_defconfig
+    fi
+    
     cd builder && make iotfapos_defconfig
     cd ..
     
@@ -69,6 +73,7 @@ helpme () {
     echo 'Build Commands'
     echo '   [s]etup - configures build system for selected board ready for use'
     echo '   [a]ll - configures and builds all output images for selected board'
+    echo '   [c]corefs - builds corefs img, recovery initrd, sd card image - no kernel'
     echo '   [l]inux - builds linux kernel & modules for selected board'
 #    echo '   [t]oolchain - configures and builds [t]oolchain for selected board'
     echo '   [d]ownload - downloads all sources for selected build'
@@ -102,10 +107,10 @@ if [ -f templates/board/"$BBT"/board.conf ]; then
         r|rebuild)
             make_config
             ;;
- #        t|toolchain)
- #       	 activate_config
- #           make_toolchain
- #           ;;
+        c|corefs)
+       		activate_config
+            make_config
+            ;;
         l|linux)
         	activate_config
             make_linux
