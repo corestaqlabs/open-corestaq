@@ -66,7 +66,7 @@ helpme () {
     echo '   [s]etup - configures build system for selected board ready for use'
     echo '   [a]ll - configures and builds all output images for selected board'
     echo '   [l]inux - builds linux kernel & modules for selected board'
-    echo '   [t]oolchain - configures and builds [t]oolchain for selected board'
+#    echo '   [t]oolchain - configures and builds [t]oolchain for selected board'
     echo '   [d]ownload - downloads all sources for selected build'
     echo '   [e]dit - configures selected board and edit config'
     echo '   [r]ebuild - (re)builds current custom config'
@@ -98,10 +98,10 @@ if [ -f templates/board/"$BBT"/board.conf ]; then
         r|rebuild)
             make_config
             ;;
-        t|toolchain)
-        	activate_config
-            make_toolchain
-            ;;
+ #        t|toolchain)
+ #       	 activate_config
+ #           make_toolchain
+ #           ;;
         l|linux)
         	activate_config
             make_linux
