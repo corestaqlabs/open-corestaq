@@ -87,9 +87,9 @@ all:
 .PHONY: all
 
 # Set and export the version string
-export BR2_VERSION := 2018.02.1
+export BR2_VERSION := 2018.02.3
 # Actual time the release is cut (for reproducible builds)
-BR2_VERSION_EPOCH = 1523310000
+BR2_VERSION_EPOCH = 1529344000
 
 # Save running make version since it's clobbered by the make package
 RUNNING_MAKE_VERSION := $(MAKE_VERSION)
@@ -761,6 +761,8 @@ endif
 		$(call MESSAGE,"Executing post-build script $(s)"); \
 		$(EXTRA_ENV) $(s) $(TARGET_DIR) $(call qstrip,$(BR2_ROOTFS_POST_SCRIPT_ARGS))$(sep))
 
+	touch $(TARGET_DIR)/usr
+
 .PHONY: target-post-image
 target-post-image: $(TARGETS_ROOTFS) target-finalize
 	@$(foreach s, $(call qstrip,$(BR2_ROOTFS_POST_IMAGE_SCRIPT)), \
@@ -987,8 +989,7 @@ printvars:
 clean:
 	rm -rf $(TARGET_DIR) $(BINARIES_DIR) $(HOST_DIR) \
 		$(BUILD_DIR) $(BASE_DIR)/staging \
-		$(LEGAL_INFO_DIR) $(GRAPHS_DIR) \
-		$(TOPDIR)/configs/* $(TOPDIR)/../output/* $(TOPDIR)/system/skeleton/*
+		$(LEGAL_INFO_DIR) $(GRAPHS_DIR)
 
 .PHONY: distclean
 distclean: clean
@@ -996,8 +997,7 @@ ifeq ($(O),$(CURDIR)/output)
 	rm -rf $(O)
 endif
 	rm -rf $(TOPDIR)/dl $(BR2_CONFIG) $(CONFIG_DIR)/.config.old $(CONFIG_DIR)/..config.tmp \
-		$(CONFIG_DIR)/.auto.deps $(BR2_EXTERNAL_FILE) \
-		$(TOPDIR)/configs/* $(TOPDIR)/../output/* $(TOPDIR)/system/skeleton/*
+		$(CONFIG_DIR)/.auto.deps $(BR2_EXTERNAL_FILE)
 
 .PHONY: help
 help:

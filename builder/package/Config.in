@@ -638,7 +638,8 @@ menu "Lua libraries/modules"
 	source "package/xavante/Config.in"
 endmenu
 endif
-
+	source "package/micropython/Config.in"
+	source "package/micropython-lib/Config.in"
 	source "package/moarvm/Config.in"
 	source "package/mono/Config.in"
 if BR2_PACKAGE_MONO
@@ -646,6 +647,7 @@ menu "Mono libraries/modules"
 	source "package/mono-gtksharp3/Config.in"
 endmenu
 endif
+	source "package/nodejs/Config.in"
 	source "package/perl/Config.in"
 if BR2_PACKAGE_PERL
 menu "Perl libraries/modules"
@@ -1591,6 +1593,7 @@ menu "Mail"
 	source "package/heirloom-mailx/Config.in"
 	source "package/libesmtp/Config.in"
 	source "package/msmtp/Config.in"
+	source "package/mutt/Config.in"
 	source "package/sylpheed/Config.in"
 endmenu
 
