@@ -39,7 +39,7 @@ activate_config () {
 
 clean_config () {
     if [ $BCMD = "xx" ]; then
-        cd builder && make distclean
+        cd builder && make clean && make distclean
         cd ..
     else
         cd builder && make clean
