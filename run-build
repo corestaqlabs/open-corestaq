@@ -2,6 +2,7 @@
 
 BCMD="$1"
 BBT="$2"
+UAPP="$3"
 
 CFG="builder/configs/"
 BCFG="builder/configs/board/"
@@ -9,6 +10,10 @@ BCFG="builder/configs/board/"
 activate_config () {
     source config/iotfapOS.conf
     source templates/board/"$BBT"/board.conf
+    source "$CFG"apps.conf
+    source "$BCFG"config/apps.conf
+    APP="$SAPP","$TAPP","$UAPP",
+	APP="$(echo $APP | sed 's/,,/,/g' | sed 's/,/.conf /g' | sed 's/^/templates\/app\//g' | sed 's/ / templates\/app\//g')"
     
     rm -rf "$CFG"* builder/system/skeleton/* output/*
     
@@ -18,13 +23,13 @@ activate_config () {
     cp -R "$BCFG"skeleton/* builder/system/skeleton/
 
     cat "$CFG"build.conf > "$CFG"iotfapos_defconfig
-    cat "$CFG"board/board.conf >> "$CFG"iotfapos_defconfig
+    cat "$BCFG"board.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"iotfapOS.conf >> "$CFG"iotfapos_defconfig
     cat "$BCFG"config/linux.conf >> "$CFG"iotfapos_defconfig
     cat "$BCFG"config/uboot.conf >> "$CFG"iotfapos_defconfig
     cat "$CFG"mydevice.conf >> "$CFG"iotfapos_defconfig
-    cat "$BCFG"config/apps.conf >> "$CFG"iotfapos_defconfig
-    cat "$CFG"app-templates.conf >> "$CFG"iotfapos_defconfig
+    cat $APP >> "$CFG"iotfapos_defconfig
+
     
     if [ $BCMD = "c" ]; then
         sed -i "s/BR2_LINUX_KERNEL=y/BR2_LINUX_KERNEL=n/g" builder/configs/iotfapos_defconfig
@@ -72,7 +77,7 @@ make_linux () {
 
 helpme () {
     echo 'Use:'
-    echo './build command board-template'
+    echo './run-build command board-template [app1,app2,app3,appN...]'
     echo ' '
     echo 'Build Commands'
     echo '   [s]etup - configures build system for selected board ready for use'
