@@ -93,8 +93,11 @@ helpme () {
     echo '   [r]ebuild - (re)builds current custom config'
     echo '   [x|xx]clean|distclean - cleans template or full build environment, board template not needed'
     echo ' '
-    echo 'Available board-templates (required):'
+    echo 'Available Board Templates (required):'
     ls templates/board/*/board.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
+    echo ' '
+    echo 'Available App Templates (optional):'
+    cat templates/app/*.conf | grep '#NAME' | cut -d "=" -f 2 | sed 's/"/   /g'
     echo ' '
 }
 
