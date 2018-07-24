@@ -43,6 +43,9 @@ activate_config () {
 
 
 clean_config () {
+
+	rm -rf builder/system/skeleton/* builder/configs/
+
     if [ $BCMD = "xx" ]; then
         cd builder && make clean && make distclean
         cd ..
