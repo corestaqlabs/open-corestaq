@@ -13,5 +13,5 @@ buildstaq/*.orig
 buildstaq/*.rej
 buildstaq/*~
 buildstaq/*.pyc
-/images
-/shitdump
+output/*
+shitdump
