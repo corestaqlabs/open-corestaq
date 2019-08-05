@@ -51,15 +51,15 @@ download_config () {
 
 edit_config () {
     activate_config
-    cd builder && make menuconfig
+    cd buildstaq && make menuconfig
 }
 
 make_config () {
-    cd builder && make
+    cd buildstaq && make -s
 }
 
 make_toolchain () {
-    cd builder && make -s toolchain
+    cd buildstaq && make -s toolchain
 }
 
 make_linux () {
