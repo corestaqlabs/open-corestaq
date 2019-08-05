@@ -91,30 +91,31 @@ if [ -f "$DEVICETEMPLATES"/"$CSQ_DEVICE"/device.conf ]; then
     case "$CSQBCMD" in
         a|all)
             activate_config
+	    download_config
             make_config
             ;;
         s|setup)
             activate_config
             ;;
         d|download)
-        	activate_config
+            activate_config
             download_config
             ;;
         e|edit)
-        	activate_config
+            activate_config
             edit_config
             ;;
         r|rebuild)
             make_config
             ;;
         c|corefs)
-        	clean_config
-       		activate_config
+            clean_config
+            activate_config
             make_config
             ;;
         l|linux)
-        	clean_config
-        	activate_config
+            clean_config
+            activate_config
             make_linux
             ;;
         *)
