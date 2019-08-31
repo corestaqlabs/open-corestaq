@@ -95,8 +95,7 @@ endif
 # Override CPP, as it expects to be able to call it like it'd
 # call the compiler.
 define QEMU_CONFIGURE_CMDS
-	unset TARGET_DIR; \
-	cd $(@D); \
+	( cd $(@D); \
 		LIBS='$(QEMU_LIBS)' \
 		$(TARGET_CONFIGURE_OPTS) \
 		$(TARGET_CONFIGURE_ARGS) \
@@ -138,16 +137,15 @@ define QEMU_CONFIGURE_CMDS
 			--disable-capstone \
 			--disable-git-update \
 			--disable-opengl \
-			$(QEMU_OPTS)
+			$(QEMU_OPTS) \
+	)
 endef
 
 define QEMU_BUILD_CMDS
-	unset TARGET_DIR; \
 	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D)
 endef
 
 define QEMU_INSTALL_TARGET_CMDS
-	unset TARGET_DIR; \
 	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D) $(QEMU_MAKE_ENV) DESTDIR=$(TARGET_DIR) install
 endef
 
@@ -266,7 +264,6 @@ endif
 # Override CPP, as it expects to be able to call it like it'd
 # call the compiler.
 define HOST_QEMU_CONFIGURE_CMDS
-	unset TARGET_DIR; \
 	cd $(@D); $(HOST_CONFIGURE_OPTS) CPP="$(HOSTCC) -E" \
 		./configure \
 		--target-list="$(HOST_QEMU_TARGETS)" \
@@ -280,12 +277,10 @@ define HOST_QEMU_CONFIGURE_CMDS
 endef
 
 define HOST_QEMU_BUILD_CMDS
-	unset TARGET_DIR; \
 	$(HOST_MAKE_ENV) $(MAKE) -C $(@D)
 endef
 
 define HOST_QEMU_INSTALL_CMDS
-	unset TARGET_DIR; \
 	$(HOST_MAKE_ENV) $(MAKE) -C $(@D) install
 endef
 

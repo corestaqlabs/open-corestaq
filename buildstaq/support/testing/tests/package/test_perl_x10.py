@@ -19,5 +19,4 @@ class TestPerlX10(TestPerlBase):
 
     def test_run(self):
         self.login()
-        self.module_test("Device::SerialPort")
         self.module_test("X10")

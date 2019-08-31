@@ -25,6 +25,4 @@ class TestPerlMailDKIM(TestPerlBase):
 
     def test_run(self):
         self.login()
-        self.module_test("Crypt::OpenSSL::Random")
-        self.module_test("Crypt::OpenSSL::RSA")
         self.module_test("Mail::DKIM")

@@ -24,11 +24,11 @@ BIND_CONF_ENV = \
 	BUILD_CC="$(TARGET_CC)" \
 	BUILD_CFLAGS="$(TARGET_CFLAGS)"
 BIND_CONF_OPTS = \
-	$(if $(BR2_TOOLCHAIN_HAS_THREADS),--enable-threads,--disable-threads) \
 	--without-lmdb \
 	--with-libjson=no \
 	--with-randomdev=/dev/urandom \
 	--enable-epoll \
+	--with-libtool \
 	--with-gssapi=no \
 	--enable-filter-aaaa
 
@@ -54,13 +54,16 @@ BIND_CONF_OPTS += --with-libxml2=no
 endif
 
 ifeq ($(BR2_PACKAGE_OPENSSL),y)
-BIND_DEPENDENCIES += host-pkgconf openssl
+BIND_DEPENDENCIES += openssl
+BIND_CONF_ENV += \
+	ac_cv_func_EVP_sha256=yes \
+	ac_cv_func_EVP_sha384=yes \
+	ac_cv_func_EVP_sha512=yes
 BIND_CONF_OPTS += \
-	--with-openssl=$(STAGING_DIR)/usr \
+	--with-openssl=$(STAGING_DIR)/usr LIBS="-lz" \
 	--with-ecdsa=yes \
 	--with-eddsa=no \
 	--with-aes=yes
-BIND_CONF_ENV += LIBS=`$(PKG_CONFIG_HOST_BINARY) --libs openssl`
 # GOST cipher support requires openssl extra engines
 ifeq ($(BR2_PACKAGE_OPENSSL_ENGINES),y)
 BIND_CONF_OPTS += --with-gost=yes
@@ -83,16 +86,6 @@ ifeq ($(BR2_PACKAGE_READLINE),y)
 BIND_DEPENDENCIES += readline
 else
 BIND_CONF_OPTS += --with-readline=no
-endif
-
-ifeq ($(BR2_STATIC_LIBS),y)
-BIND_CONF_OPTS += \
-	--without-dlopen \
-	--without-libtool
-else
-BIND_CONF_OPTS += \
-	--with-dlopen \
-	--with-libtool
 endif
 
 define BIND_TARGET_REMOVE_SERVER

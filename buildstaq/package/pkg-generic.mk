@@ -149,7 +149,7 @@ $(BUILD_DIR)/%/.stamp_downloaded:
 			break ; \
 		fi ; \
 	done
-	$(foreach p,$($(PKG)_ALL_DOWNLOADS),$(call DOWNLOAD,$(p),$(PKG))$(sep))
+	$(foreach p,$($(PKG)_ALL_DOWNLOADS),$(call DOWNLOAD,$(p))$(sep))
 	$(foreach hook,$($(PKG)_POST_DOWNLOAD_HOOKS),$(call $(hook))$(sep))
 	$(Q)mkdir -p $(@D)
 	@$(call step_end,download)
@@ -158,7 +158,7 @@ $(BUILD_DIR)/%/.stamp_downloaded:
 # Retrieve actual source archive, e.g. for prebuilt external toolchains
 $(BUILD_DIR)/%/.stamp_actual_downloaded:
 	@$(call step_start,actual-download)
-	$(call DOWNLOAD,$($(PKG)_ACTUAL_SOURCE_SITE)/$($(PKG)_ACTUAL_SOURCE_TARBALL),$(PKG))
+	$(call DOWNLOAD,$($(PKG)_ACTUAL_SOURCE_SITE)/$($(PKG)_ACTUAL_SOURCE_TARBALL))
 	$(Q)mkdir -p $(@D)
 	@$(call step_end,actual-download)
 	$(Q)touch $@
@@ -661,18 +661,6 @@ $(2)_FINAL_RECURSIVE_DEPENDENCIES = $$(sort \
 	) \
 	$$($(2)_FINAL_RECURSIVE_DEPENDENCIES__X))
 
-$(2)_FINAL_RECURSIVE_RDEPENDENCIES = $$(sort \
-	$$(if $$(filter undefined,$$(origin $(2)_FINAL_RECURSIVE_RDEPENDENCIES__X)), \
-		$$(eval $(2)_FINAL_RECURSIVE_RDEPENDENCIES__X := \
-			$$(foreach p, \
-				$$($(2)_RDEPENDENCIES), \
-				$$(p) \
-				$$($$(call UPPERCASE,$$(p))_FINAL_RECURSIVE_RDEPENDENCIES) \
-			) \
-		) \
-	) \
-	$$($(2)_FINAL_RECURSIVE_RDEPENDENCIES__X))
-
 $(2)_INSTALL_STAGING		?= NO
 $(2)_INSTALL_IMAGES		?= NO
 $(2)_INSTALL_TARGET		?= YES
@@ -850,21 +838,19 @@ $(1)-show-depends:
 			@echo $$($(2)_FINAL_ALL_DEPENDENCIES)
 
 $(1)-show-recursive-depends:
-			@echo $$($(2)_FINAL_RECURSIVE_DEPENDENCIES)
+			@cd "$$(CONFIG_DIR)" && \
+			$$(TOPDIR)/support/scripts/graph-depends -p $(1) -f -q
 
 $(1)-show-rdepends:
 			@echo $$($(2)_RDEPENDENCIES)
 
 $(1)-show-recursive-rdepends:
-			@echo $$($(2)_FINAL_RECURSIVE_RDEPENDENCIES)
+			@cd "$$(CONFIG_DIR)" && \
+			$$(TOPDIR)/support/scripts/graph-depends -p $(1) --reverse -f -q
 
 $(1)-show-build-order: $$(patsubst %,%-show-build-order,$$($(2)_FINAL_ALL_DEPENDENCIES))
 	@:
 	$$(info $(1))
-
-$(1)-show-info:
-	@:
-	$$(info $$(call clean-json,{ $$(call json-info,$(2)) }))
 
 $(1)-graph-depends: graph-depends-requirements
 	$(call pkg-graph-depends,$(1),--direct)
@@ -1083,7 +1069,6 @@ DL_TOOLS_DEPENDENCIES += $$(call extractor-dependency,$$($(2)_SOURCE))
 	$(1)-external-deps \
 	$(1)-extract \
 	$(1)-graph-depends \
-	$(1)-graph-rdepends \
 	$(1)-install \
 	$(1)-install-host \
 	$(1)-install-images \
@@ -1097,7 +1082,6 @@ DL_TOOLS_DEPENDENCIES += $$(call extractor-dependency,$$($(2)_SOURCE))
 	$(1)-reinstall \
 	$(1)-rsync \
 	$(1)-show-depends \
-	$(1)-show-info \
 	$(1)-show-version \
 	$(1)-source
 

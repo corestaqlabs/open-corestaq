@@ -37,6 +37,7 @@ endef
 
 define QT5SCRIPT_INSTALL_STAGING_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D) install
+	$(QT5_LA_PRL_FILES_FIXUP)
 endef
 
 ifeq ($(BR2_STATIC_LIBS),)

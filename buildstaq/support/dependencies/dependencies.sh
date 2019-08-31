@@ -37,7 +37,8 @@ case ":${PATH:-unset}:" in
 	;;
 (*"
 "*)	printf "\n"
-	printf "Your PATH contains a newline (\\\n) character.\n"
+	# Break the '\n' sequence, or a \n is printed (which is not what we want).
+	printf "Your PATH contains a newline (%sn) character.\n" "\\"
 	printf "This doesn't work. Fix you PATH.\n"
 	exit 1
 	;;

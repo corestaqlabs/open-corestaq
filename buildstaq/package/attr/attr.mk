@@ -12,6 +12,7 @@ ATTR_LICENSE_FILES = doc/COPYING doc/COPYING.LGPL
 ATTR_INSTALL_STAGING = YES
 
 ATTR_CONF_OPTS = --disable-nls
+HOST_ATTR_CONF_OPTS = --disable-nls
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

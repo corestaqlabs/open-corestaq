@@ -92,9 +92,9 @@ all:
 .PHONY: all
 
 # Set and export the version string
-export BR2_VERSION := 2019.05.1
+export BR2_VERSION := 2019.02.4
 # Actual time the release is cut (for reproducible builds)
-BR2_VERSION_EPOCH = 1562530000
+BR2_VERSION_EPOCH = 1562745000
 
 # Save running make version since it's clobbered by the make package
 RUNNING_MAKE_VERSION := $(MAKE_VERSION)
@@ -439,7 +439,6 @@ KERNEL_ARCH := $(shell echo "$(ARCH)" | sed -e "s/-.*//" \
 	-e s/arceb/arc/ \
 	-e s/arm.*/arm/ -e s/sa110/arm/ \
 	-e s/aarch64.*/arm64/ \
-	-e s/nds32.*/nds32/ \
 	-e s/or1k/openrisc/ \
 	-e s/parisc64/parisc/ \
 	-e s/powerpc64.*/powerpc/ \
@@ -900,21 +899,6 @@ check-dependencies:
 	@cd "$(CONFIG_DIR)"; \
 	$(TOPDIR)/support/scripts/graph-depends -C
 
-.PHONY: show-info
-show-info:
-	@:
-	$(info $(call clean-json, \
-			{ $(foreach p, \
-				$(sort $(foreach i,$(PACKAGES) $(TARGETS_ROOTFS), \
-						$(i) \
-						$($(call UPPERCASE,$(i))_FINAL_RECURSIVE_DEPENDENCIES) \
-					) \
-				), \
-				$(call json-info,$(call UPPERCASE,$(p)))$(comma) \
-			) } \
-		) \
-	)
-
 else # ifeq ($(BR2_HAVE_DOT_CONFIG),y)
 
 # Some subdirectories are also package names. To avoid that "make linux"
@@ -1047,7 +1031,7 @@ $(BUILD_DIR)/.br2-external.in: $(BUILD_DIR)
 printvars:
 	@:
 	$(foreach V, \
-		$(sort $(filter $(VARS),$(.VARIABLES))), \
+		$(sort $(if $(VARS),$(filter $(VARS),$(.VARIABLES)),$(.VARIABLES))), \
 		$(if $(filter-out environment% default automatic, \
 				$(origin $V)), \
 		$(if $(QUOTED_VARS),\
@@ -1108,7 +1092,6 @@ help:
 	@echo '  <pkg>-depends          - Build <pkg>'\''s dependencies'
 	@echo '  <pkg>-configure        - Build <pkg> up to the configure step'
 	@echo '  <pkg>-build            - Build <pkg> up to the build step'
-	@echo '  <pkg>-show-info        - generate info about <pkg>, as a JSON blurb'
 	@echo '  <pkg>-show-depends     - List packages on which <pkg> depends'
 	@echo '  <pkg>-show-rdepends    - List packages which have <pkg> as a dependency'
 	@echo '  <pkg>-show-recursive-depends'
@@ -1141,8 +1124,7 @@ help:
 	@echo '  source                 - download all sources needed for offline-build'
 	@echo '  external-deps          - list external packages used'
 	@echo '  legal-info             - generate info about license compliance'
-	@echo '  show-info              - generate info about packages, as a JSON blurb'
-	@echo '  printvars              - dump internal variables selected with VARS=...'
+	@echo '  printvars              - dump all the internal variables'
 	@echo
 	@echo '  make V=0|1             - 0 => quiet build (default), 1 => verbose build'
 	@echo '  make O=dir             - Locate all output files in "dir", including .config'
