@@ -14,4 +14,5 @@ buildstaq/*.rej
 buildstaq/*~
 buildstaq/*.pyc
 output/*
+toolchains/*
 shitdump
