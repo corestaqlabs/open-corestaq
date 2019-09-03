@@ -15,7 +15,7 @@ buildstaq/*~
 buildstaq/*.pyc
 output/*
 !output/.empty
-pkgcache/
+pkgcache/*
 !pkgcache/README.md
 !pkgcache/toolchains/.empty
 !pkgcache/src/.empty
