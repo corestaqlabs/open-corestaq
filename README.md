@@ -1,5 +1,6 @@
 Use:
 
+```
 ./corestaq-build.sh build-command [device-template]
  
 Build Commands
