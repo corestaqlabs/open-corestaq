@@ -28,7 +28,6 @@ helpme () {
 activate_config () {
     source "$DEVICETEMPLATES"/"$CSQ_DEVICE"/device.conf
     rm -rf "$CSQTMPL"*
-    mkdir output
     cp config/corestaq-busybox.conf buildstaq/template/
     cp scripts/build-hooks/* buildstaq/template/
     cp templates/platform/$CSQ_PLATFORM/* buildstaq/template/

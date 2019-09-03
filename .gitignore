@@ -15,6 +15,7 @@ buildstaq/*~
 buildstaq/*.pyc
 output/*
 !output/.empty
-toolchains/
-!toolchains/.empty
+pkgcache/
+!pkgcache/toolchains/.empty
+!pkgcache/src/.empty
 shitdump
