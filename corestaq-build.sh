@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 
 CSQBCMD="$1"
 CSQ_DEVICE="$2"
