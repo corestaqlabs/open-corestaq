@@ -14,7 +14,7 @@ buildstaq/*.rej
 buildstaq/*~
 buildstaq/*.pyc
 output/*
-!output/README.md
+!output/.empty
 pkgcache/*
 !pkgcache/README.md
 !pkgcache/toolchains/README.md
