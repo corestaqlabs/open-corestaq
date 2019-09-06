@@ -249,13 +249,13 @@ ifeq ($(BR2_PACKAGE_SYSKLOGD)$(BR2_PACKAGE_RSYSLOG)$(BR2_PACKAGE_SYSLOG_NG),)
 define BUSYBOX_INSTALL_LOGGING_SCRIPT
 	if grep -q CONFIG_SYSLOGD=y $(@D)/.config; \
 	then \
-		$(INSTALL) -m 0755 -D package/busybox/S01syslogd \
-			$(TARGET_DIR)/etc/init.d/S01syslogd; \
+		$(INSTALL) -m 0755 -D package/busybox/S01-syslogd \
+			$(TARGET_DIR)/etc/init.d/S01-syslogd; \
 	fi; \
 	if grep -q CONFIG_KLOGD=y $(@D)/.config; \
 	then \
-		$(INSTALL) -m 0755 -D package/busybox/S02klogd \
-			$(TARGET_DIR)/etc/init.d/S02klogd; \
+		$(INSTALL) -m 0755 -D package/busybox/S02-klogd \
+			$(TARGET_DIR)/etc/init.d/S02-klogd; \
 	fi
 endef
 endif
@@ -271,10 +271,10 @@ define BUSYBOX_SET_WATCHDOG
 	$(call KCONFIG_ENABLE_OPT,CONFIG_WATCHDOG,$(BUSYBOX_BUILD_CONFIG))
 endef
 define BUSYBOX_INSTALL_WATCHDOG_SCRIPT
-	$(INSTALL) -D -m 0755 package/busybox/S15watchdog \
-		$(TARGET_DIR)/etc/init.d/S15watchdog
+	$(INSTALL) -D -m 0755 package/busybox/S09-watchdog \
+		$(TARGET_DIR)/etc/init.d/S09-watchdog
 	$(SED) s/PERIOD/$(call qstrip,$(BR2_PACKAGE_BUSYBOX_WATCHDOG_PERIOD))/ \
-		$(TARGET_DIR)/etc/init.d/S15watchdog
+		$(TARGET_DIR)/etc/init.d/S09-watchdog
 endef
 endif
 

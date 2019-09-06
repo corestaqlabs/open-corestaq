@@ -4,8 +4,8 @@ CSQBCMD="$1"
 CSQ_DEVICE="$2"
 CSQ_PLATFORM=""
 CSQTMPL="buildstaq/template/"
-DEVICETEMPLATES="templates/device"
-PLATFORMTEMPLATES="templates/platform"
+DEVICETPL="templates/device"
+PLATFORMTPL="templates/platform"
 
 helpme () {
     echo 'Use:'
@@ -21,24 +21,24 @@ helpme () {
     echo '   [x|xx]clean|distclean - cleans template or full build environment, board template not needed'
     echo ' '
     echo 'Available Device Templates (required):'
-    ls "$DEVICETEMPLATES"/*/device.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
+    ls "$DEVICETPL"/*/device.conf | cut -d '/' -f 3 | sed 's/^/   /g' | grep -v template
     echo ' '
 }
 
 activate_config () {
-    source "$DEVICETEMPLATES"/"$CSQ_DEVICE"/device.conf
-    source "$PLATFORMTEMPLATES"/"$CSQ_PLATFORM"/toolchain.conf
+    source "$DEVICETPL"/"$CSQ_DEVICE"/device.conf
+    source "$PLATFORMTPL"/"$CSQ_PLATFORM"/toolchain.conf
     rm -rf "$CSQTMPL"*
     cp config/corestaq-busybox.conf buildstaq/template/
     cp scripts/build-hooks/* buildstaq/template/
-    cp templates/platform/$CSQ_PLATFORM/* buildstaq/template/
-    cp templates/device/$CSQ_DEVICE/* buildstaq/template/
+    cp "$PLATFORMTPL"/"$CSQ_PLATFORM"/* buildstaq/template/
+    cp "$DEVICETPL"/"$CSQ_DEVICE"/* buildstaq/template/
     chmod +x buildstaq/template/*.sh
 
-    cat buildstaq/template/platform.conf > buildstaq/template/corestaq_defconfig 
+    cat config/build.conf > buildstaq/template/corestaq_defconfig
+    cat buildstaq/template/platform.conf >> buildstaq/template/corestaq_defconfig 
     cat buildstaq/template/device.conf >> buildstaq/template/corestaq_defconfig
-    cat config/build.conf >> buildstaq/template/corestaq_defconfig
-    
+
     if [ "$CSQ_TOOLCHAIN" == "local" ]; then
     	cat config/toolchain-local.conf >> buildstaq/template/corestaq_defconfig
     elif [ "$CSQ_TOOLCHAIN" == "external" ]; then
@@ -105,7 +105,7 @@ make_linux () {
 
 
 ####
-if [ -f "$DEVICETEMPLATES"/"$CSQ_DEVICE"/device.conf ]; then
+if [ -f "$DEVICETPL"/"$CSQ_DEVICE"/device.conf ]; then
     case "$CSQBCMD" in
         a|all)
             activate_config

@@ -7,19 +7,18 @@ corestaq_fakeroot () {
 
 platform_fakeroot () {
 	echo "platform-fakeroot.sh"
-	template/platform-fakeroot.sh
+	[ -f template/platform-fakeroot.sh ] && template/platform-fakeroot.sh
 }
 
 device_fakeroot () {
 	echo "device-fakeroot.sh"
-	template/device-fakeroot.sh
+	[ -f template/device-fakeroot.sh ] && template/device-fakeroot.sh
 }
-
 
 ###
 corestaq_fakeroot
-[ -f template/platform-fakeroot.sh ] && platform_fakeroot
-[ -f template/device-fakeroot.sh ] && device_fakeroot
+platform_fakeroot
+device_fakeroot
 
 exit 0
 
