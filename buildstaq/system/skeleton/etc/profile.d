@@ -1,1 +1,0 @@
-../staqfs/configfs/sys/profile.d

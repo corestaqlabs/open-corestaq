@@ -97,8 +97,8 @@ endef
 
 ifeq ($(BR2_USE_MMU),y)
 define DROPBEAR_INSTALL_INIT_SYSV
-	$(INSTALL) -D -m 755 package/dropbear/S19-sshd \
-		$(TARGET_DIR)/etc/init.d/S19-sshd
+	$(INSTALL) -D -m 755 package/dropbear/S50dropbear \
+		$(TARGET_DIR)/etc/init.d/S50dropbear
 endef
 else
 DROPBEAR_POST_EXTRACT_HOOKS += DROPBEAR_DISABLE_STANDALONE
@@ -129,7 +129,7 @@ define DROPBEAR_INSTALL_TARGET_CMDS
 	for f in $(DROPBEAR_TARGET_BINS); do \
 		ln -snf ../sbin/dropbear $(TARGET_DIR)/usr/bin/$$f ; \
 	done
-	ln -snf /staqfs/configfs/sys/sshd $(TARGET_DIR)/etc/dropbear
+	ln -snf /var/run/dropbear $(TARGET_DIR)/etc/dropbear
 endef
 
 $(eval $(autotools-package))
